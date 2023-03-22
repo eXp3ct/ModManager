@@ -1,4 +1,5 @@
-﻿using CurseForgeApiLib.Client;
+﻿using Core.Model;
+using CurseForgeApiLib.Client;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -35,12 +36,17 @@ namespace ModManager
 
         private async void Window_Activated(object sender, EventArgs e)
         {
-            var service = new CurseApiService();
-            var response = await service.GetCategories(432, classId: 6);
+            var deserializer = new CurseApiDeserializer(new CurseModApiService());
+            var mods = await deserializer.SearchMods();
 
+            datagrid.ItemsSource = mods;
+        }
+
+        private static async Task StringToJson(string response)
+        {
             var json = JsonConvert.DeserializeObject<dynamic>(response);
-            
-            var path = System.IO.Path.Combine(@"D:\Projects\C# Projects\ModManager\Jsons", "categories.json");
+
+            var path = System.IO.Path.Combine(@"D:\Projects\C# Projects\ModManager\Jsons", "mods.json");
             await File.WriteAllTextAsync(path, JsonConvert.SerializeObject(json, Formatting.Indented));
         }
     }

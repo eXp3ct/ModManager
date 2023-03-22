@@ -1,0 +1,1240 @@
+{
+  "data": [
+    {
+      "id": 222880,
+      "gameId": 432,
+      "name": "Thermal Foundation",
+      "slug": "thermal-foundation",
+      "links": {
+        "websiteUrl": "https://www.curseforge.com/minecraft/mc-mods/thermal-foundation",
+        "wikiUrl": "https://teamcofh.com/docs/thermal-foundation/",
+        "issuesUrl": "https://discord.gg/uRKrnbH",
+        "sourceUrl": null
+      },
+      "summary": "The Foundation of a Thermally Expanding World!",
+      "status": 4,
+      "downloadCount": 100931292,
+      "isFeatured": false,
+      "primaryCategoryId": 408,
+      "categories": [
+        {
+          "id": 408,
+          "gameId": 432,
+          "name": "Ores and Resources",
+          "slug": "world-ores-resources",
+          "url": "https://www.curseforge.com/minecraft/mc-mods/world-gen/world-ores-resources",
+          "iconUrl": "https://media.forgecdn.net/avatars/6/23/635351494012336510.png",
+          "dateModified": "2014-05-08T17:36:41.233Z",
+          "isClass": false,
+          "classId": 6,
+          "parentCategoryId": 406
+        },
+        {
+          "id": 412,
+          "gameId": 432,
+          "name": "Technology",
+          "slug": "technology",
+          "url": "https://www.curseforge.com/minecraft/mc-mods/technology",
+          "iconUrl": "https://media.forgecdn.net/avatars/6/27/635351494745973439.png",
+          "dateModified": "2014-05-08T17:37:54.597Z",
+          "isClass": false,
+          "classId": 6,
+          "parentCategoryId": 6
+        },
+        {
+          "id": 412,
+          "gameId": 432,
+          "name": "Technology",
+          "slug": "technology",
+          "url": "https://www.curseforge.com/minecraft/mc-mods/technology",
+          "iconUrl": "https://media.forgecdn.net/avatars/6/27/635351494745973439.png",
+          "dateModified": "2014-05-08T17:37:54.597Z",
+          "isClass": false,
+          "classId": 6,
+          "parentCategoryId": 6
+        },
+        {
+          "id": 427,
+          "gameId": 432,
+          "name": "Thermal Expansion",
+          "slug": "addons-thermalexpansion",
+          "url": "https://www.curseforge.com/minecraft/mc-mods/mc-addons/addons-thermalexpansion",
+          "iconUrl": "https://media.forgecdn.net/avatars/14/468/635596759720145473.png",
+          "dateModified": "2015-02-16T15:32:52.013Z",
+          "isClass": false,
+          "classId": 6,
+          "parentCategoryId": 426
+        }
+      ],
+      "classId": 6,
+      "authors": [
+        {
+          "id": 12590770,
+          "name": "TeamCoFH",
+          "url": "https://www.curseforge.com/members/12590770-teamcofh?username=teamcofh"
+        },
+        {
+          "id": 4632299,
+          "name": "KingLemmingCoFH",
+          "url": "https://www.curseforge.com/members/4632299-kinglemmingcofh?username=kinglemmingcofh"
+        }
+      ],
+      "logo": {
+        "id": 416888,
+        "modId": 222880,
+        "title": "637640074076654754.png",
+        "description": "",
+        "thumbnailUrl": "https://media.forgecdn.net/avatars/thumbnails/416/888/256/256/637640074076654754.png",
+        "url": "https://media.forgecdn.net/avatars/416/888/637640074076654754.png"
+      },
+      "screenshots": [],
+      "mainFileId": 4382373,
+      "latestFiles": [
+        {
+          "id": 2926428,
+          "gameId": 432,
+          "modId": 222880,
+          "isAvailable": true,
+          "displayName": "ThermalFoundation-1.12.2-2.6.7.1-universal.jar",
+          "fileName": "ThermalFoundation-1.12.2-2.6.7.1-universal.jar",
+          "releaseType": 1,
+          "fileStatus": 4,
+          "hashes": [
+            {
+              "value": "6bd93897638fd68794cae17c9520b68a85fc97d0",
+              "algo": 1
+            },
+            {
+              "value": "6eca041bbf28949b60ecf1179d561156",
+              "algo": 2
+            }
+          ],
+          "fileDate": "2020-04-10T18:25:27.03Z",
+          "fileLength": 2219736,
+          "downloadCount": 12651255,
+          "downloadUrl": "https://edge.forgecdn.net/files/2926/428/ThermalFoundation-1.12.2-2.6.7.1-universal.jar",
+          "gameVersions": [
+            "1.12.2"
+          ],
+          "sortableGameVersions": [
+            {
+              "gameVersionName": "1.12.2",
+              "gameVersionPadded": "0000000001.0000000012.0000000002",
+              "gameVersion": "1.12.2",
+              "gameVersionReleaseDate": "2017-09-18T05:00:00Z",
+              "gameVersionTypeId": 628
+            }
+          ],
+          "dependencies": [
+            {
+              "modId": 69162,
+              "relationType": 3
+            },
+            {
+              "modId": 271384,
+              "relationType": 3
+            }
+          ],
+          "alternateFileId": 0,
+          "isServerPack": false,
+          "fileFingerprint": 3785001149,
+          "modules": [
+            {
+              "name": "META-INF",
+              "fingerprint": 3146421109
+            },
+            {
+              "name": "cofh",
+              "fingerprint": 424909284
+            },
+            {
+              "name": "assets",
+              "fingerprint": 2503639902
+            },
+            {
+              "name": "mcmod.info",
+              "fingerprint": 1191536478
+            }
+          ]
+        },
+        {
+          "id": 4382373,
+          "gameId": 432,
+          "modId": 222880,
+          "isAvailable": true,
+          "displayName": "thermal_foundation-1.19.2-10.2.0.47.jar",
+          "fileName": "thermal_foundation-1.19.2-10.2.0.47.jar",
+          "releaseType": 1,
+          "fileStatus": 4,
+          "hashes": [
+            {
+              "value": "40dd9a985ee87dae376831fd095d8c539cee72a2",
+              "algo": 1
+            },
+            {
+              "value": "4593c1fa6f84796665484abe564a7bf1",
+              "algo": 2
+            }
+          ],
+          "fileDate": "2023-02-05T23:03:19.003Z",
+          "fileLength": 4808452,
+          "downloadCount": 368138,
+          "downloadUrl": "https://edge.forgecdn.net/files/4382/373/thermal_foundation-1.19.2-10.2.0.47.jar",
+          "gameVersions": [
+            "1.19.2",
+            "Forge"
+          ],
+          "sortableGameVersions": [
+            {
+              "gameVersionName": "1.19.2",
+              "gameVersionPadded": "0000000001.0000000019.0000000002",
+              "gameVersion": "1.19.2",
+              "gameVersionReleaseDate": "2022-08-05T14:12:22.413Z",
+              "gameVersionTypeId": 73407
+            },
+            {
+              "gameVersionName": "Forge",
+              "gameVersionPadded": "0",
+              "gameVersion": "",
+              "gameVersionReleaseDate": "2019-08-01T00:00:00Z",
+              "gameVersionTypeId": 68441
+            }
+          ],
+          "dependencies": [
+            {
+              "modId": 69162,
+              "relationType": 3
+            }
+          ],
+          "alternateFileId": 0,
+          "isServerPack": false,
+          "fileFingerprint": 21009747,
+          "modules": [
+            {
+              "name": "META-INF",
+              "fingerprint": 290416343
+            },
+            {
+              "name": "cofh",
+              "fingerprint": 897050724
+            },
+            {
+              "name": "thermal_foundation.png",
+              "fingerprint": 2954702152
+            },
+            {
+              "name": "data",
+              "fingerprint": 2665815009
+            },
+            {
+              "name": ".cache",
+              "fingerprint": 1660011330
+            },
+            {
+              "name": "logo.png",
+              "fingerprint": 2229765295
+            },
+            {
+              "name": "assets",
+              "fingerprint": 920891181
+            },
+            {
+              "name": "thermal_series.png",
+              "fingerprint": 3723551670
+            },
+            {
+              "name": "pack.mcmeta",
+              "fingerprint": 1445158653
+            }
+          ]
+        }
+      ],
+      "latestFilesIndexes": [
+        {
+          "gameVersion": "1.19.2",
+          "fileId": 4382373,
+          "filename": "thermal_foundation-1.19.2-10.2.0.47.jar",
+          "releaseType": 1,
+          "gameVersionTypeId": 73407,
+          "modLoader": 1
+        },
+        {
+          "gameVersion": "1.18.2",
+          "fileId": 4382339,
+          "filename": "thermal_foundation-1.18.2-9.2.0.46.jar",
+          "releaseType": 1,
+          "gameVersionTypeId": 73250,
+          "modLoader": 1
+        },
+        {
+          "gameVersion": "1.16.5",
+          "fileId": 4022666,
+          "filename": "thermal_foundation-1.16.5-1.5.2.30.jar",
+          "releaseType": 1,
+          "gameVersionTypeId": 70886,
+          "modLoader": 1
+        },
+        {
+          "gameVersion": "1.16.4",
+          "fileId": 3248150,
+          "filename": "thermal_foundation-1.16.4-1.2.0.jar",
+          "releaseType": 1,
+          "gameVersionTypeId": 70886,
+          "modLoader": 1
+        },
+        {
+          "gameVersion": "1.16.3",
+          "fileId": 3155830,
+          "filename": "thermal_foundation-1.16.3-1.1.6.jar",
+          "releaseType": 1,
+          "gameVersionTypeId": 70886,
+          "modLoader": 1
+        },
+        {
+          "gameVersion": "1.15.2",
+          "fileId": 3104349,
+          "filename": "thermal-1.15.2-1.0.2.jar",
+          "releaseType": 1,
+          "gameVersionTypeId": 68722,
+          "modLoader": 1
+        },
+        {
+          "gameVersion": "1.12.2",
+          "fileId": 2926428,
+          "filename": "ThermalFoundation-1.12.2-2.6.7.1-universal.jar",
+          "releaseType": 1,
+          "gameVersionTypeId": 628
+        },
+        {
+          "gameVersion": "1.11.2",
+          "fileId": 2453220,
+          "filename": "ThermalFoundation-1.11.2-2.2.5.16-universal.jar",
+          "releaseType": 1,
+          "gameVersionTypeId": 599
+        },
+        {
+          "gameVersion": "1.10.2",
+          "fileId": 2453219,
+          "filename": "ThermalFoundation-1.10.2-2.1.5.12-universal.jar",
+          "releaseType": 1,
+          "gameVersionTypeId": 572
+        },
+        {
+          "gameVersion": "1.7.10",
+          "fileId": 2388752,
+          "filename": "ThermalFoundation-[1.7.10]1.2.6-118.jar",
+          "releaseType": 1,
+          "gameVersionTypeId": 5
+        }
+      ],
+      "latestEarlyAccessFilesIndexes": [],
+      "dateCreated": "2014-07-30T00:01:14.153Z",
+      "dateModified": "2023-02-05T23:18:41.817Z",
+      "dateReleased": "2023-02-05T23:03:19.003Z",
+      "allowModDistribution": true,
+      "gamePopularityRank": 35,
+      "isAvailable": true,
+      "thumbsUpCount": 0
+    },
+    {
+      "id": 325739,
+      "gameId": 432,
+      "name": "Thermal Golems Addon",
+      "slug": "thermal-golems-addon",
+      "links": {
+        "websiteUrl": "https://www.curseforge.com/minecraft/mc-mods/thermal-golems-addon",
+        "wikiUrl": "",
+        "issuesUrl": "https://github.com/skyjay1/thermal-golems-addon/issues",
+        "sourceUrl": "https://github.com/skyjay1/thermal-golems-addon"
+      },
+      "summary": "Extra Golems support for Thermal Foundation!",
+      "status": 4,
+      "downloadCount": 70115,
+      "isFeatured": false,
+      "primaryCategoryId": 427,
+      "categories": [
+        {
+          "id": 411,
+          "gameId": 432,
+          "name": "Mobs",
+          "slug": "world-mobs",
+          "url": "https://www.curseforge.com/minecraft/mc-mods/world-gen/world-mobs",
+          "iconUrl": "https://media.forgecdn.net/avatars/6/53/635351500195070414.png",
+          "dateModified": "2014-05-08T17:46:59.507Z",
+          "isClass": false,
+          "classId": 6,
+          "parentCategoryId": 406
+        },
+        {
+          "id": 427,
+          "gameId": 432,
+          "name": "Thermal Expansion",
+          "slug": "addons-thermalexpansion",
+          "url": "https://www.curseforge.com/minecraft/mc-mods/mc-addons/addons-thermalexpansion",
+          "iconUrl": "https://media.forgecdn.net/avatars/14/468/635596759720145473.png",
+          "dateModified": "2015-02-16T15:32:52.013Z",
+          "isClass": false,
+          "classId": 6,
+          "parentCategoryId": 426
+        },
+        {
+          "id": 422,
+          "gameId": 432,
+          "name": "Adventure and RPG",
+          "slug": "adventure-rpg",
+          "url": "https://www.curseforge.com/minecraft/mc-mods/adventure-rpg",
+          "iconUrl": "https://media.forgecdn.net/avatars/6/37/635351497295252123.png",
+          "dateModified": "2014-05-08T17:42:09.54Z",
+          "isClass": false,
+          "classId": 6,
+          "parentCategoryId": 6
+        }
+      ],
+      "classId": 6,
+      "authors": [
+        {
+          "id": 21188487,
+          "name": "skyjay1",
+          "url": "https://www.curseforge.com/members/21188487-skyjay1?username=skyjay1"
+        }
+      ],
+      "logo": {
+        "id": 208421,
+        "modId": 325739,
+        "title": "636974593599030839.png",
+        "description": "",
+        "thumbnailUrl": "https://media.forgecdn.net/avatars/thumbnails/208/421/256/256/636974593599030839.png",
+        "url": "https://media.forgecdn.net/avatars/208/421/636974593599030839.png"
+      },
+      "screenshots": [
+        {
+          "id": 255562,
+          "modId": 325739,
+          "title": "All Thermal Golems",
+          "description": "... most of them, anyway. The Enderium Golem teleported away.",
+          "thumbnailUrl": "https://media.forgecdn.net/attachments/thumbnails/255/562/310/172/2019-06-29_21.png",
+          "url": "https://media.forgecdn.net/attachments/255/562/2019-06-29_21.png"
+        },
+        {
+          "id": 255563,
+          "modId": 325739,
+          "title": "Platinum Golem",
+          "description": "So strong!",
+          "thumbnailUrl": "https://media.forgecdn.net/attachments/thumbnails/255/563/310/172/2019-06-29_21.png",
+          "url": "https://media.forgecdn.net/attachments/255/563/2019-06-29_21.png"
+        },
+        {
+          "id": 255564,
+          "modId": 325739,
+          "title": "Lumium Golem",
+          "description": "Glows in the dark!",
+          "thumbnailUrl": "https://media.forgecdn.net/attachments/thumbnails/255/564/310/172/2019-06-29_21.png",
+          "url": "https://media.forgecdn.net/attachments/255/564/2019-06-29_21.png"
+        }
+      ],
+      "mainFileId": 2733059,
+      "latestFiles": [
+        {
+          "id": 2733059,
+          "gameId": 432,
+          "modId": 325739,
+          "isAvailable": true,
+          "displayName": "Thermal Golems 7.1.5-0",
+          "fileName": "Thermal-Golems-Addon-7.1.5-0.jar",
+          "releaseType": 1,
+          "fileStatus": 4,
+          "hashes": [
+            {
+              "value": "58b84c052ea80fb0441fc119df4cceea6867561e",
+              "algo": 1
+            },
+            {
+              "value": "f593830f7dafe0bf80d685749a71fb73",
+              "algo": 2
+            }
+          ],
+          "fileDate": "2019-06-30T02:45:17.663Z",
+          "fileLength": 287901,
+          "downloadCount": 52661,
+          "downloadUrl": "https://edge.forgecdn.net/files/2733/59/Thermal-Golems-Addon-7.1.5-0.jar",
+          "gameVersions": [
+            "1.12.1",
+            "1.12",
+            "1.12.2"
+          ],
+          "sortableGameVersions": [
+            {
+              "gameVersionName": "1.12.1",
+              "gameVersionPadded": "0000000001.0000000012.0000000001",
+              "gameVersion": "1.12.1",
+              "gameVersionReleaseDate": "2017-08-03T05:00:00Z",
+              "gameVersionTypeId": 628
+            },
+            {
+              "gameVersionName": "1.12",
+              "gameVersionPadded": "0000000001.0000000012",
+              "gameVersion": "1.12",
+              "gameVersionReleaseDate": "2017-06-07T05:00:00Z",
+              "gameVersionTypeId": 628
+            },
+            {
+              "gameVersionName": "1.12.2",
+              "gameVersionPadded": "0000000001.0000000012.0000000002",
+              "gameVersion": "1.12.2",
+              "gameVersionReleaseDate": "2017-09-18T05:00:00Z",
+              "gameVersionTypeId": 628
+            }
+          ],
+          "dependencies": [
+            {
+              "modId": 233300,
+              "relationType": 3
+            },
+            {
+              "modId": 253449,
+              "relationType": 2
+            },
+            {
+              "modId": 222880,
+              "relationType": 3
+            }
+          ],
+          "alternateFileId": 0,
+          "isServerPack": false,
+          "fileFingerprint": 750825099,
+          "modules": [
+            {
+              "name": "META-INF",
+              "fingerprint": 747818249
+            },
+            {
+              "name": "golems_thermal",
+              "fingerprint": 838239135
+            },
+            {
+              "name": "assets",
+              "fingerprint": 2977660487
+            },
+            {
+              "name": "mcmod.info",
+              "fingerprint": 3494464550
+            },
+            {
+              "name": "pack.mcmeta",
+              "fingerprint": 2976441345
+            }
+          ]
+        }
+      ],
+      "latestFilesIndexes": [
+        {
+          "gameVersion": "1.12.1",
+          "fileId": 2733059,
+          "filename": "Thermal-Golems-Addon-7.1.5-0.jar",
+          "releaseType": 1,
+          "gameVersionTypeId": 628
+        },
+        {
+          "gameVersion": "1.12",
+          "fileId": 2733059,
+          "filename": "Thermal-Golems-Addon-7.1.5-0.jar",
+          "releaseType": 1,
+          "gameVersionTypeId": 628
+        },
+        {
+          "gameVersion": "1.12.2",
+          "fileId": 2733059,
+          "filename": "Thermal-Golems-Addon-7.1.5-0.jar",
+          "releaseType": 1,
+          "gameVersionTypeId": 628
+        }
+      ],
+      "latestEarlyAccessFilesIndexes": null,
+      "dateCreated": "2019-06-30T02:42:39.84Z",
+      "dateModified": "2019-07-01T18:26:09.077Z",
+      "dateReleased": "2019-06-30T02:45:17.663Z",
+      "allowModDistribution": true,
+      "gamePopularityRank": 9083,
+      "isAvailable": true,
+      "thumbsUpCount": 0
+    },
+    {
+      "id": 291737,
+      "gameId": 432,
+      "name": "Thermal Innovation",
+      "slug": "thermal-innovation",
+      "links": {
+        "websiteUrl": "https://www.curseforge.com/minecraft/mc-mods/thermal-innovation",
+        "wikiUrl": "https://teamcofh.com/docs/thermal-innovation/",
+        "issuesUrl": "https://discord.gg/uRKrnbH",
+        "sourceUrl": null
+      },
+      "summary": "Thermal Technology marches on. Adds Thermal-style tools and equipment!",
+      "status": 4,
+      "downloadCount": 48887402,
+      "isFeatured": false,
+      "primaryCategoryId": 434,
+      "categories": [
+        {
+          "id": 412,
+          "gameId": 432,
+          "name": "Technology",
+          "slug": "technology",
+          "url": "https://www.curseforge.com/minecraft/mc-mods/technology",
+          "iconUrl": "https://media.forgecdn.net/avatars/6/27/635351494745973439.png",
+          "dateModified": "2014-05-08T17:37:54.597Z",
+          "isClass": false,
+          "classId": 6,
+          "parentCategoryId": 6
+        },
+        {
+          "id": 427,
+          "gameId": 432,
+          "name": "Thermal Expansion",
+          "slug": "addons-thermalexpansion",
+          "url": "https://www.curseforge.com/minecraft/mc-mods/mc-addons/addons-thermalexpansion",
+          "iconUrl": "https://media.forgecdn.net/avatars/14/468/635596759720145473.png",
+          "dateModified": "2015-02-16T15:32:52.013Z",
+          "isClass": false,
+          "classId": 6,
+          "parentCategoryId": 426
+        },
+        {
+          "id": 434,
+          "gameId": 432,
+          "name": "Armor, Tools, and Weapons",
+          "slug": "armor-weapons-tools",
+          "url": "https://www.curseforge.com/minecraft/mc-mods/armor-weapons-tools",
+          "iconUrl": "https://media.forgecdn.net/avatars/6/47/635351498790409758.png",
+          "dateModified": "2014-05-08T17:44:39.057Z",
+          "isClass": false,
+          "classId": 6,
+          "parentCategoryId": 6
+        }
+      ],
+      "classId": 6,
+      "authors": [
+        {
+          "id": 12590770,
+          "name": "TeamCoFH",
+          "url": "https://www.curseforge.com/members/12590770-teamcofh?username=teamcofh"
+        },
+        {
+          "id": 4632299,
+          "name": "KingLemmingCoFH",
+          "url": "https://www.curseforge.com/members/4632299-kinglemmingcofh?username=kinglemmingcofh"
+        }
+      ],
+      "logo": {
+        "id": 416887,
+        "modId": 291737,
+        "title": "637640073796649549.png",
+        "description": "",
+        "thumbnailUrl": "https://media.forgecdn.net/avatars/thumbnails/416/887/256/256/637640073796649549.png",
+        "url": "https://media.forgecdn.net/avatars/416/887/637640073796649549.png"
+      },
+      "screenshots": [],
+      "mainFileId": 4382374,
+      "latestFiles": [
+        {
+          "id": 3247002,
+          "gameId": 432,
+          "modId": 291737,
+          "isAvailable": true,
+          "displayName": "thermal_innovation-1.16.4-1.2.0.jar",
+          "fileName": "thermal_innovation-1.16.4-1.2.0.jar",
+          "releaseType": 1,
+          "fileStatus": 4,
+          "hashes": [
+            {
+              "value": "4e0cefabdbdb62ff2d708c03591f6fc2a5896de9",
+              "algo": 1
+            },
+            {
+              "value": "332701a3fa55a0905b934caa2f3df12f",
+              "algo": 2
+            }
+          ],
+          "fileDate": "2021-03-21T18:20:32.22Z",
+          "fileLength": 95137,
+          "downloadCount": 2264273,
+          "downloadUrl": "https://edge.forgecdn.net/files/3247/2/thermal_innovation-1.16.4-1.2.0.jar",
+          "gameVersions": [
+            "1.16.5",
+            "1.16.4"
+          ],
+          "sortableGameVersions": [
+            {
+              "gameVersionName": "1.16.5",
+              "gameVersionPadded": "0000000001.0000000016.0000000005",
+              "gameVersion": "1.16.5",
+              "gameVersionReleaseDate": "2021-01-15T14:14:48.91Z",
+              "gameVersionTypeId": 70886
+            },
+            {
+              "gameVersionName": "1.16.4",
+              "gameVersionPadded": "0000000001.0000000016.0000000004",
+              "gameVersion": "1.16.4",
+              "gameVersionReleaseDate": "2020-11-02T18:40:51.49Z",
+              "gameVersionTypeId": 70886
+            }
+          ],
+          "dependencies": [
+            {
+              "modId": 222880,
+              "relationType": 3
+            }
+          ],
+          "alternateFileId": 0,
+          "isServerPack": false,
+          "fileFingerprint": 670992570,
+          "modules": [
+            {
+              "name": "META-INF",
+              "fingerprint": 1223552586
+            },
+            {
+              "name": "cofh",
+              "fingerprint": 2896418187
+            },
+            {
+              "name": "assets",
+              "fingerprint": 3039217023
+            },
+            {
+              "name": "data",
+              "fingerprint": 3353708073
+            },
+            {
+              "name": "logo.png",
+              "fingerprint": 721674231
+            },
+            {
+              "name": "pack.mcmeta",
+              "fingerprint": 4253522632
+            }
+          ]
+        },
+        {
+          "id": 4382374,
+          "gameId": 432,
+          "modId": 291737,
+          "isAvailable": true,
+          "displayName": "thermal_innovation-1.19.2-10.2.0.18.jar",
+          "fileName": "thermal_innovation-1.19.2-10.2.0.18.jar",
+          "releaseType": 1,
+          "fileStatus": 4,
+          "hashes": [
+            {
+              "value": "aefb9056410fc32137964fc02fba6fd7376102af",
+              "algo": 1
+            },
+            {
+              "value": "7ca577f15f2665d0d866e20e02dd73fb",
+              "algo": 2
+            }
+          ],
+          "fileDate": "2023-02-05T23:03:33.187Z",
+          "fileLength": 237623,
+          "downloadCount": 9,
+          "downloadUrl": "https://edge.forgecdn.net/files/4382/374/thermal_innovation-1.19.2-10.2.0.18.jar",
+          "gameVersions": [
+            "1.19.2",
+            "Forge"
+          ],
+          "sortableGameVersions": [
+            {
+              "gameVersionName": "1.19.2",
+              "gameVersionPadded": "0000000001.0000000019.0000000002",
+              "gameVersion": "1.19.2",
+              "gameVersionReleaseDate": "2022-08-05T14:12:22.413Z",
+              "gameVersionTypeId": 73407
+            },
+            {
+              "gameVersionName": "Forge",
+              "gameVersionPadded": "0",
+              "gameVersion": "",
+              "gameVersionReleaseDate": "2019-08-01T00:00:00Z",
+              "gameVersionTypeId": 68441
+            }
+          ],
+          "dependencies": [
+            {
+              "modId": 222880,
+              "relationType": 3
+            }
+          ],
+          "alternateFileId": 0,
+          "isServerPack": false,
+          "fileFingerprint": 1128331146,
+          "modules": [
+            {
+              "name": "META-INF",
+              "fingerprint": 2581190276
+            },
+            {
+              "name": ".cache",
+              "fingerprint": 715514284
+            },
+            {
+              "name": "assets",
+              "fingerprint": 747941527
+            },
+            {
+              "name": "cofh",
+              "fingerprint": 2401951046
+            },
+            {
+              "name": "data",
+              "fingerprint": 2334861517
+            },
+            {
+              "name": "logo.png",
+              "fingerprint": 721674231
+            },
+            {
+              "name": "pack.mcmeta",
+              "fingerprint": 90411998
+            },
+            {
+              "name": "thermal_innovation.png",
+              "fingerprint": 1060679981
+            }
+          ]
+        }
+      ],
+      "latestFilesIndexes": [
+        {
+          "gameVersion": "1.19.2",
+          "fileId": 4382374,
+          "filename": "thermal_innovation-1.19.2-10.2.0.18.jar",
+          "releaseType": 1,
+          "gameVersionTypeId": 73407,
+          "modLoader": 1
+        },
+        {
+          "gameVersion": "1.18.2",
+          "fileId": 4382344,
+          "filename": "thermal_innovation-1.18.2-9.2.0.17.jar",
+          "releaseType": 1,
+          "gameVersionTypeId": 73250,
+          "modLoader": 1
+        },
+        {
+          "gameVersion": "1.16.5",
+          "fileId": 3788896,
+          "filename": "thermal_innovation-1.16.5-1.5.0.4.jar",
+          "releaseType": 1,
+          "gameVersionTypeId": 70886,
+          "modLoader": 1
+        },
+        {
+          "gameVersion": "1.16.5",
+          "fileId": 3247002,
+          "filename": "thermal_innovation-1.16.4-1.2.0.jar",
+          "releaseType": 1,
+          "gameVersionTypeId": 70886
+        },
+        {
+          "gameVersion": "1.16.4",
+          "fileId": 3247002,
+          "filename": "thermal_innovation-1.16.4-1.2.0.jar",
+          "releaseType": 1,
+          "gameVersionTypeId": 70886
+        },
+        {
+          "gameVersion": "1.16.3",
+          "fileId": 3156588,
+          "filename": "thermal_innovation-1.16.3-1.1.7.jar",
+          "releaseType": 1,
+          "gameVersionTypeId": 70886,
+          "modLoader": 1
+        },
+        {
+          "gameVersion": "1.16.4",
+          "fileId": 3156588,
+          "filename": "thermal_innovation-1.16.3-1.1.7.jar",
+          "releaseType": 1,
+          "gameVersionTypeId": 70886,
+          "modLoader": 1
+        },
+        {
+          "gameVersion": "1.15.2",
+          "fileId": 3098578,
+          "filename": "thermal_innovation-1.15.2-1.0.0.jar",
+          "releaseType": 1,
+          "gameVersionTypeId": 68722,
+          "modLoader": 1
+        },
+        {
+          "gameVersion": "1.12.2",
+          "fileId": 2920441,
+          "filename": "ThermalInnovation-1.12.2-0.3.6.1-universal.jar",
+          "releaseType": 1,
+          "gameVersionTypeId": 628
+        }
+      ],
+      "latestEarlyAccessFilesIndexes": null,
+      "dateCreated": "2018-04-07T04:39:10.657Z",
+      "dateModified": "2023-02-05T23:18:39.933Z",
+      "dateReleased": "2023-02-05T23:03:33.187Z",
+      "allowModDistribution": true,
+      "gamePopularityRank": 106,
+      "isAvailable": true,
+      "thumbsUpCount": 0
+    },
+    {
+      "id": 390003,
+      "gameId": 432,
+      "name": "Thermal Integrate",
+      "slug": "thermal-integrate",
+      "links": {
+        "websiteUrl": "https://www.curseforge.com/minecraft/mc-mods/thermal-integrate",
+        "wikiUrl": "",
+        "issuesUrl": "https://github.com/DDX5/Thermal-Integrate-Mod/issues",
+        "sourceUrl": null
+      },
+      "summary": "For More Generation In Desolate Areas",
+      "status": 4,
+      "downloadCount": 2038,
+      "isFeatured": false,
+      "primaryCategoryId": 406,
+      "categories": [
+        {
+          "id": 406,
+          "gameId": 432,
+          "name": "World Gen",
+          "slug": "world-gen",
+          "url": "https://www.curseforge.com/minecraft/mc-mods/world-gen",
+          "iconUrl": "https://media.forgecdn.net/avatars/6/26/635351494599748860.png",
+          "dateModified": "2017-10-16T21:40:11.473Z",
+          "isClass": false,
+          "classId": 6,
+          "parentCategoryId": 6
+        },
+        {
+          "id": 408,
+          "gameId": 432,
+          "name": "Ores and Resources",
+          "slug": "world-ores-resources",
+          "url": "https://www.curseforge.com/minecraft/mc-mods/world-gen/world-ores-resources",
+          "iconUrl": "https://media.forgecdn.net/avatars/6/23/635351494012336510.png",
+          "dateModified": "2014-05-08T17:36:41.233Z",
+          "isClass": false,
+          "classId": 6,
+          "parentCategoryId": 406
+        },
+        {
+          "id": 427,
+          "gameId": 432,
+          "name": "Thermal Expansion",
+          "slug": "addons-thermalexpansion",
+          "url": "https://www.curseforge.com/minecraft/mc-mods/mc-addons/addons-thermalexpansion",
+          "iconUrl": "https://media.forgecdn.net/avatars/14/468/635596759720145473.png",
+          "dateModified": "2015-02-16T15:32:52.013Z",
+          "isClass": false,
+          "classId": 6,
+          "parentCategoryId": 426
+        }
+      ],
+      "classId": 6,
+      "authors": [
+        {
+          "id": 100051139,
+          "name": "multicoder",
+          "url": "https://www.curseforge.com/members/100051139-multicoder?username=multicoder"
+        }
+      ],
+      "logo": {
+        "id": 279641,
+        "modId": 390003,
+        "title": "637278525703199114.png",
+        "description": "",
+        "thumbnailUrl": "https://media.forgecdn.net/avatars/thumbnails/279/641/256/256/637278525703199114.png",
+        "url": "https://media.forgecdn.net/avatars/279/641/637278525703199114.png"
+      },
+      "screenshots": [],
+      "mainFileId": 3233074,
+      "latestFiles": [
+        {
+          "id": 3209530,
+          "gameId": 432,
+          "modId": 390003,
+          "isAvailable": true,
+          "displayName": "thermalintegrate-1.8.3.jar",
+          "fileName": "thermalintegrate-1.8.3.jar",
+          "releaseType": 1,
+          "fileStatus": 4,
+          "hashes": [
+            {
+              "value": "a559031a1301626a891d9f2e2eccf4605726b2b1",
+              "algo": 1
+            },
+            {
+              "value": "8f0240e0c0278f229ac4a57f10259b59",
+              "algo": 2
+            }
+          ],
+          "fileDate": "2021-02-19T15:12:40.197Z",
+          "fileLength": 171346,
+          "downloadCount": 43,
+          "downloadUrl": null,
+          "gameVersions": [
+            "1.12.2"
+          ],
+          "sortableGameVersions": [
+            {
+              "gameVersionName": "1.12.2",
+              "gameVersionPadded": "0000000001.0000000012.0000000002",
+              "gameVersion": "1.12.2",
+              "gameVersionReleaseDate": "2017-09-18T05:00:00Z",
+              "gameVersionTypeId": 628
+            }
+          ],
+          "dependencies": [
+            {
+              "modId": 69163,
+              "relationType": 3
+            },
+            {
+              "modId": 222880,
+              "relationType": 3
+            },
+            {
+              "modId": 227443,
+              "relationType": 3
+            }
+          ],
+          "alternateFileId": 0,
+          "isServerPack": false,
+          "fileFingerprint": 3078124482,
+          "modules": [
+            {
+              "name": "META-INF",
+              "fingerprint": 2859056818
+            },
+            {
+              "name": "com",
+              "fingerprint": 1809980227
+            },
+            {
+              "name": "assets",
+              "fingerprint": 3440167173
+            },
+            {
+              "name": "mcmod.info",
+              "fingerprint": 3679545447
+            },
+            {
+              "name": "pack.mcmeta",
+              "fingerprint": 266453275
+            }
+          ]
+        },
+        {
+          "id": 3233074,
+          "gameId": 432,
+          "modId": 390003,
+          "isAvailable": true,
+          "displayName": "thermalintegrate-1.8.4.jar",
+          "fileName": "thermalintegrate-1.8.4.jar",
+          "releaseType": 1,
+          "fileStatus": 4,
+          "hashes": [
+            {
+              "value": "c71cc026af6473d7c18e0c4981b2418703e614ec",
+              "algo": 1
+            },
+            {
+              "value": "f1677c87ece63de9902d524d7011d830",
+              "algo": 2
+            }
+          ],
+          "fileDate": "2021-03-09T17:22:29.317Z",
+          "fileLength": 170691,
+          "downloadCount": 580,
+          "downloadUrl": null,
+          "gameVersions": [
+            "Forge",
+            "1.12.2"
+          ],
+          "sortableGameVersions": [
+            {
+              "gameVersionName": "Forge",
+              "gameVersionPadded": "0",
+              "gameVersion": "",
+              "gameVersionReleaseDate": "2019-08-01T00:00:00Z",
+              "gameVersionTypeId": 68441
+            },
+            {
+              "gameVersionName": "1.12.2",
+              "gameVersionPadded": "0000000001.0000000012.0000000002",
+              "gameVersion": "1.12.2",
+              "gameVersionReleaseDate": "2017-09-18T05:00:00Z",
+              "gameVersionTypeId": 628
+            }
+          ],
+          "dependencies": [
+            {
+              "modId": 227443,
+              "relationType": 3
+            },
+            {
+              "modId": 222880,
+              "relationType": 3
+            },
+            {
+              "modId": 69163,
+              "relationType": 3
+            }
+          ],
+          "alternateFileId": 0,
+          "isServerPack": false,
+          "fileFingerprint": 2320877801,
+          "modules": [
+            {
+              "name": "META-INF",
+              "fingerprint": 3252915523
+            },
+            {
+              "name": "com",
+              "fingerprint": 1920176292
+            },
+            {
+              "name": "assets",
+              "fingerprint": 614161978
+            },
+            {
+              "name": "mcmod.info",
+              "fingerprint": 3873179518
+            },
+            {
+              "name": "pack.mcmeta",
+              "fingerprint": 266453275
+            }
+          ]
+        },
+        {
+          "id": 3254177,
+          "gameId": 432,
+          "modId": 390003,
+          "isAvailable": true,
+          "displayName": "thermalintegrate-2.0.0-Pre_1.jar",
+          "fileName": "thermalintegrate-2.0.0-Pre_1.jar",
+          "releaseType": 2,
+          "fileStatus": 4,
+          "hashes": [
+            {
+              "value": "55b071c355b4f9352b452690d256ddf9ad261984",
+              "algo": 1
+            },
+            {
+              "value": "573fc75c1147c129a9d7764be6b7294d",
+              "algo": 2
+            }
+          ],
+          "fileDate": "2021-03-28T22:37:55.55Z",
+          "fileLength": 226058,
+          "downloadCount": 71,
+          "downloadUrl": null,
+          "gameVersions": [
+            "Forge",
+            "1.12.2"
+          ],
+          "sortableGameVersions": [
+            {
+              "gameVersionName": "Forge",
+              "gameVersionPadded": "0",
+              "gameVersion": "",
+              "gameVersionReleaseDate": "2019-08-01T00:00:00Z",
+              "gameVersionTypeId": 68441
+            },
+            {
+              "gameVersionName": "1.12.2",
+              "gameVersionPadded": "0000000001.0000000012.0000000002",
+              "gameVersion": "1.12.2",
+              "gameVersionReleaseDate": "2017-09-18T05:00:00Z",
+              "gameVersionTypeId": 628
+            }
+          ],
+          "dependencies": [
+            {
+              "modId": 227443,
+              "relationType": 3
+            },
+            {
+              "modId": 69163,
+              "relationType": 3
+            },
+            {
+              "modId": 222880,
+              "relationType": 3
+            },
+            {
+              "modId": 231951,
+              "relationType": 2
+            }
+          ],
+          "alternateFileId": 0,
+          "isServerPack": false,
+          "fileFingerprint": 1707925415,
+          "modules": [
+            {
+              "name": "com",
+              "fingerprint": 347256209
+            },
+            {
+              "name": "assets",
+              "fingerprint": 614161978
+            },
+            {
+              "name": "mcmod.info",
+              "fingerprint": 212568475
+            },
+            {
+              "name": "pack.mcmeta",
+              "fingerprint": 266453275
+            },
+            {
+              "name": "META-INF",
+              "fingerprint": 1773294200
+            }
+          ]
+        }
+      ],
+      "latestFilesIndexes": [
+        {
+          "gameVersion": "1.12.2",
+          "fileId": 3254177,
+          "filename": "thermalintegrate-2.0.0-Pre_1.jar",
+          "releaseType": 2,
+          "gameVersionTypeId": 628,
+          "modLoader": 1
+        },
+        {
+          "gameVersion": "1.12.2",
+          "fileId": 3233074,
+          "filename": "thermalintegrate-1.8.4.jar",
+          "releaseType": 1,
+          "gameVersionTypeId": 628,
+          "modLoader": 1
+        },
+        {
+          "gameVersion": "1.12.2",
+          "fileId": 3209530,
+          "filename": "thermalintegrate-1.8.3.jar",
+          "releaseType": 1,
+          "gameVersionTypeId": 628
+        }
+      ],
+      "latestEarlyAccessFilesIndexes": null,
+      "dateCreated": "2020-06-15T21:16:10.283Z",
+      "dateModified": "2021-06-21T00:17:22.093Z",
+      "dateReleased": "2021-03-28T22:37:55.55Z",
+      "allowModDistribution": false,
+      "gamePopularityRank": 24790,
+      "isAvailable": true,
+      "thumbsUpCount": 0
+    }
+  ]
+}
