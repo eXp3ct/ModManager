@@ -3,7 +3,7 @@ using CurseForgeApiLib.Enums;
 
 namespace CurseForgeApiLib.Behaivour
 {
-    public interface ICurseApiDeserializer
+    public interface ICurseModApiDeserializer
     {
         public Task<Mod> GetMod(int modId);
         public Task<List<Mod>> SearchMods(int gameId, int classId = default,
@@ -15,5 +15,6 @@ namespace CurseForgeApiLib.Behaivour
         //TODO Deserialize HTML 
         public Task<List<MinecraftGameVersion>> GetMinecraftGameVersions(bool sortDescending = false);
         public Task<List<MinecraftModLoaderIndex>> GetMinecraftModLoaders(string version = null, bool includeAll = true);
+        public Task<string> GetModDescription(int modId);
     }
 }

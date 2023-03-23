@@ -37,7 +37,7 @@
             </ToolBar>
         </ToolBarTray>
 
-        <DataGrid Grid.Row="1" Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Name="datagrid" Margin="0,0,0,-2" ScrollViewer.HorizontalScrollBarVisibility="Disabled" HorizontalScrollBarVisibility="Disabled" CanUserReorderColumns="False" CanUserResizeColumns="False">
+        <DataGrid Grid.Row="1" Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Name="datagrid" Margin="0,0,0,-2" ScrollViewer.HorizontalScrollBarVisibility="Visible" CanUserReorderColumns="False" CanUserResizeColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeRows="False" HorizontalScrollBarVisibility="Visible">
             <!-- Add DataGrid columns and other properties here -->
         </DataGrid>
     </Grid>

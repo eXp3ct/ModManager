@@ -1,75 +1,55 @@
-﻿using Core.Model;
-using CurseForgeApiLib.Behaivour;
+﻿using CurseForgeApiLib.Behaivour;
 using CurseForgeApiLib.Enums;
-using CurseForgeApiLib.Uris;
 using CurseForgeApiLib.HttpClients;
+using CurseForgeApiLib.Uris;
 using Newtonsoft.Json;
-using System;
 using System.Text;
 
 namespace CurseForgeApiLib.Client
 {
-    public class CurseModApiService : IGetMod,IGetMods, ISearchMods, IGetModDescription, IGetCategories, IGetMinecraftVersions, IGetMinecraftModLoaders
+    public class CurseModApiService : IGetMod, IGetMods, ISearchMods,
+        IGetModDescription, IGetCategories, IGetMinecraftVersions, IGetMinecraftModLoaders
     {
+        private CurseApiClient Client { get; } = new();
         public async Task<string> GetCategories(int gameId, int classId = 0)
         {
-            using var client = new HttpClients.CurseApiClient();
-            using var response = await client.GetAsync(CurseForgeUris.GetEndpoint(RequestType.GetCategories) + $"?gameId={gameId}&classId={classId}");
-            
+            using var response = await Client.GetAsync(CurseForgeUris.GetEndpoint(RequestType.GetCategories) + $"?gameId={gameId}&classId={classId}&classesOnly=false");
+
             return await response.Content.ReadAsStringAsync();
         }
 
         public async Task<string> GetMinecraftModLoaders(string version = null, bool includeAll = true)
         {
-            using var client = new HttpClients.CurseApiClient();
             var url = CurseForgeUris.GetEndpoint(RequestType.GetMinecraftModLoaders) + $"?versions={version}&includeAll={includeAll}";
-            using var response = await client.GetAsync(url);
+            using var response = await Client.GetAsync(url);
 
             return await response.Content.ReadAsStringAsync();
         }
 
         public async Task<string> GetMinecraftVersions(bool sortDescending = false)
         {
-            using var client = new HttpClients.CurseApiClient();
             var url = CurseForgeUris.GetEndpoint(RequestType.GetMinecraftVersions) + $"?sortDescending={sortDescending}";
-            using var response = await client.GetAsync(url);
+            using var response = await Client.GetAsync(url);
 
             return await response.Content.ReadAsStringAsync();
         }
 
         public async Task<string> GetMod(int modId)
         {
-            try
-            {
-                using var client = new HttpClients.CurseApiClient();
-                using var response = await client.GetAsync(CurseForgeUris.GetEndpoint(RequestType.GetMod, modId));
+            using var response = await Client.GetAsync(CurseForgeUris.GetEndpoint(RequestType.GetMod, modId));
 
-                return await response.Content.ReadAsStringAsync();
-            }
-            catch (Exception)
-            {
-                throw new Exception($"Error occured while getting mod with id {modId}");
-            }
+            return await response.Content.ReadAsStringAsync();
         }
 
         public async Task<string> GetModDescription(int modId)
         {
-            try
-            {
-                using var client = new HttpClients.CurseApiClient();
-                using var response = await client.GetAsync(CurseForgeUris.GetEndpoint(RequestType.GetModDescription, modId));
+            using var response = await Client.GetAsync(CurseForgeUris.GetEndpoint(RequestType.GetModDescription, modId));
 
-                return await response.Content.ReadAsStringAsync();
-            }
-            catch (Exception)
-            {
-                throw new Exception($"Error occured while getting mod with id {modId}");
-            }
+            return await response.Content.ReadAsStringAsync();
         }
 
         public async Task<string> GetMods(List<int> modIds)
         {
-            using var client = new HttpClients.CurseApiClient();
             var url = CurseForgeUris.GetEndpoint(RequestType.GetMods);
             var requestBody = JsonConvert.SerializeObject(new { modIds });
 
@@ -80,12 +60,16 @@ namespace CurseForgeApiLib.Client
             };
 
             // Send the request and wait for the response
-            using var response = await client.SendAsync(request);
+            using var response = await Client.SendAsync(request);
 
             return await response.Content.ReadAsStringAsync();
         }
 
-        public async Task<string> SearchMods(int gameId, int classId = 0, int categoryId = 0, string gameVersion = "", string searchFilter = "", SearchSortFields sortField = 0, string sortOrder = "asc", ModLoaderType modLoaderType = ModLoaderType.Any, int gameVersionTypeId = 0, int authorId = 0, string slug = "", int index = 0, int pageSize = 0)
+        public async Task<string> SearchMods(int gameId, int classId = 0,
+            int categoryId = 0, string gameVersion = "", string searchFilter = "",
+            SearchSortFields sortField = 0, string sortOrder = "asc",
+            ModLoaderType modLoaderType = ModLoaderType.Any, int gameVersionTypeId = 0,
+            int authorId = 0, string slug = "", int index = 0, int pageSize = 0)
         {
             var queryString = new StringBuilder();
             queryString.Append($"gameId={gameId}");
