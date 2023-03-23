@@ -10,7 +10,7 @@ namespace CurseForgeApiLib.Uris
     public static class CurseForgeUris
     {
         private static readonly string BaseUrl = "https://api.curseforge.com";
-        public static readonly Dictionary<RequestType, string> Endpoints = new()
+        private static readonly Dictionary<RequestType, string> Endpoints = new()
         {
             {RequestType.SearchMod, $"{BaseUrl}/v1/mods/search" },
             {RequestType.GetMod, $"{BaseUrl}/v1/mods/{{modId}}" },

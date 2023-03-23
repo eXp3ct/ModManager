@@ -2,18 +2,18 @@
 using CurseForgeApiLib.Behaivour;
 using CurseForgeApiLib.Enums;
 using CurseForgeApiLib.Uris;
-using CurseForgeApiLib.WebClient;
+using CurseForgeApiLib.HttpClients;
 using Newtonsoft.Json;
 using System;
 using System.Text;
 
 namespace CurseForgeApiLib.Client
 {
-    public class CurseModApiService : ICurseModService, ICurseCategoriesService, ICurseMinecraftVersions, ICurseMinecraftModLoaders
+    public class CurseModApiService : IGetMod,IGetMods, ISearchMods, IGetModDescription, IGetCategories, IGetMinecraftVersions, IGetMinecraftModLoaders
     {
         public async Task<string> GetCategories(int gameId, int classId = 0)
         {
-            using var client = new WebClient.Client();
+            using var client = new HttpClients.CurseApiClient();
             using var response = await client.GetAsync(CurseForgeUris.GetEndpoint(RequestType.GetCategories) + $"?gameId={gameId}&classId={classId}");
             
             return await response.Content.ReadAsStringAsync();
@@ -21,7 +21,7 @@ namespace CurseForgeApiLib.Client
 
         public async Task<string> GetMinecraftModLoaders(string version = null, bool includeAll = true)
         {
-            using var client = new WebClient.Client();
+            using var client = new HttpClients.CurseApiClient();
             var url = CurseForgeUris.GetEndpoint(RequestType.GetMinecraftModLoaders) + $"?versions={version}&includeAll={includeAll}";
             using var response = await client.GetAsync(url);
 
@@ -30,7 +30,7 @@ namespace CurseForgeApiLib.Client
 
         public async Task<string> GetMinecraftVersions(bool sortDescending = false)
         {
-            using var client = new WebClient.Client();
+            using var client = new HttpClients.CurseApiClient();
             var url = CurseForgeUris.GetEndpoint(RequestType.GetMinecraftVersions) + $"?sortDescending={sortDescending}";
             using var response = await client.GetAsync(url);
 
@@ -41,7 +41,7 @@ namespace CurseForgeApiLib.Client
         {
             try
             {
-                using var client = new WebClient.Client();
+                using var client = new HttpClients.CurseApiClient();
                 using var response = await client.GetAsync(CurseForgeUris.GetEndpoint(RequestType.GetMod, modId));
 
                 return await response.Content.ReadAsStringAsync();
@@ -56,7 +56,7 @@ namespace CurseForgeApiLib.Client
         {
             try
             {
-                using var client = new WebClient.Client();
+                using var client = new HttpClients.CurseApiClient();
                 using var response = await client.GetAsync(CurseForgeUris.GetEndpoint(RequestType.GetModDescription, modId));
 
                 return await response.Content.ReadAsStringAsync();
@@ -69,7 +69,7 @@ namespace CurseForgeApiLib.Client
 
         public async Task<string> GetMods(List<int> modIds)
         {
-            using var client = new WebClient.Client();
+            using var client = new HttpClients.CurseApiClient();
             var url = CurseForgeUris.GetEndpoint(RequestType.GetMods);
             var requestBody = JsonConvert.SerializeObject(new { modIds });
 
@@ -104,7 +104,7 @@ namespace CurseForgeApiLib.Client
 
             var url = $"{CurseForgeUris.GetEndpoint(RequestType.SearchMod)}?{queryString}";
 
-            using var httpClient = new WebClient.Client();
+            using var httpClient = new HttpClients.CurseApiClient();
             var response = await httpClient.GetAsync(url);
 
             if (!response.IsSuccessStatusCode)

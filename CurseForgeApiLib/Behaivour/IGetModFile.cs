@@ -1,6 +1,6 @@
 ﻿namespace CurseForgeApiLib.Behaivour
 {
-    public interface ICurseGetModFile
+    public interface IGetModFile
     {
         public Task<string> GetModFile(int modId, int fileId);
     }

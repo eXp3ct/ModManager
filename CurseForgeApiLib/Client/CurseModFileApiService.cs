@@ -11,11 +11,11 @@ using Newtonsoft.Json;
 
 namespace CurseForgeApiLib.Client
 {
-    public class CurseModFileApiService : ICurseGetModFile, ICurseGetModFiles, ICurseGetFiles, ICurseGetModFileDownloadUrl
+    public class CurseModFileApiService : IGetModFile, IGetModFiles, IGetFiles, IGetModFileDownloadUrl
     {
         public async Task<string> GetFiles(List<int> files)
         {
-            using var client = new WebClient.Client();
+            using var client = new HttpClients.CurseApiClient();
             var json = JsonConvert.SerializeObject(files);
             var content = new StringContent(json, Encoding.UTF8, "application/json");
             using var response = await client.PostAsync(CurseForgeUris.GetEndpoint(RequestType.GetFiles), content);
@@ -25,7 +25,7 @@ namespace CurseForgeApiLib.Client
 
         public async Task<string> GetModFile(int modId, int fileId)
         {
-            using var client = new WebClient.Client();
+            using var client = new HttpClients.CurseApiClient();
             var url = CurseForgeUris.GetEndpoint(RequestType.GetModFile, modId, fileId);
             using var response = await client.GetAsync(url);
 
@@ -34,7 +34,7 @@ namespace CurseForgeApiLib.Client
 
         public async Task<string> GetModFileDownloadUrl(int modId, int fileId)
         {
-            using var client = new WebClient.Client();
+            using var client = new HttpClients.CurseApiClient();
             var url = CurseForgeUris.GetEndpoint(RequestType.GetModFileDownloadUrl, modId: modId, fileId: fileId);
             using var response = await client.GetAsync(url);
 
@@ -43,7 +43,7 @@ namespace CurseForgeApiLib.Client
 
         public async Task<string> GetModFiles(int modId, string gameVersion = "", ModLoaderType modLoaderType = ModLoaderType.Any, int gameVersionTypeId = 0, int index = 0, int pageSize = 50)
         {
-            using var client = new WebClient.Client();
+            using var client = new HttpClients.CurseApiClient();
             var queryParams = new Dictionary<string, string>
             {
                 { "gameVersion", gameVersion },

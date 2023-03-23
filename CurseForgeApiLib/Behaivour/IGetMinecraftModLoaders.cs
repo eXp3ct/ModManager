@@ -1,6 +1,6 @@
 ﻿namespace CurseForgeApiLib.Behaivour
 {
-    public interface ICurseMinecraftModLoaders
+    public interface IGetMinecraftModLoaders
     {
         public Task<string> GetMinecraftModLoaders(string version = default, bool includeAll = true);
     }

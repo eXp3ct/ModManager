@@ -1,6 +1,6 @@
 ﻿namespace CurseForgeApiLib.Behaivour
 {
-    public interface ICurseMinecraftVersions
+    public interface IGetMinecraftVersions
     {
         public Task<string> GetMinecraftVersions(bool sortDescending = false);
     }

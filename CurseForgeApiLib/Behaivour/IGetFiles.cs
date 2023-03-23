@@ -2,7 +2,7 @@
 
 namespace CurseForgeApiLib.Behaivour
 {
-    public interface ICurseGetFiles
+    public interface IGetFiles
     {
         public Task<string> GetFiles(List<int> files);
     }
