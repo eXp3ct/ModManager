@@ -2,6 +2,7 @@
 using Core.Model.Data;
 using CurseForgeApiLib.Behaivour;
 using CurseForgeApiLib.Enums;
+using ModManager.Model;
 using Newtonsoft.Json;
 
 namespace CurseForgeApiLib.Client
@@ -13,22 +14,6 @@ namespace CurseForgeApiLib.Client
         public CurseModApiDeserializer(CurseModApiService service)
         {
             _service = service;
-        }
-
-        public async Task<List<MinecraftGameVersion>> GetMinecraftGameVersions(bool sortDescending = false)
-        {
-            var response = await _service.GetMinecraftVersions(sortDescending);
-            var versionsData = JsonConvert.DeserializeObject<MinecraftVersionsData>(response);
-
-            return versionsData.Data;
-        }
-
-        public async Task<List<MinecraftModLoaderIndex>> GetMinecraftModLoaders(string version = null, bool includeAll = true)
-        {
-            var response = await _service.GetMinecraftModLoaders(version, includeAll);
-            var modloadersData = JsonConvert.DeserializeObject<MinecraftModLoadersData>(response);
-
-            return modloadersData.Data;
         }
 
         public async Task<Mod> GetMod(int modId)
@@ -70,6 +55,25 @@ namespace CurseForgeApiLib.Client
             var modsData = JsonConvert.DeserializeObject<ModsData>(response);
 
             return modsData.Data;
+        }
+
+        public async Task<List<Mod>> SearchMods(ViewState state)
+        {
+            return await SearchMods(
+                gameId: state.GameId,
+                classId: state.ClassId,
+                categoryId: state.CategoryId ?? 0,
+                gameVersion: state.GameVersion,
+                searchFilter: state.SearchFilter,
+                sortField: state.SortFields ?? 0,
+                sortOrder: state.SortOrder ?? "asc",
+                modLoaderType: state.ModLoaderType ?? ModLoaderType.Any,
+                gameVersionTypeId: state.GameVersionTypeId ?? 0,
+                authorId: state.AuthorId ?? 0,
+                slug: state.Slug,
+                index: state.Index,
+                pageSize: state.PageSize
+            );
         }
     }
 }

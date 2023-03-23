@@ -12,6 +12,7 @@ namespace ApiTesting
     public class ApiModJsonsTesting
     {
         private readonly CurseModApiService _serivce = new();
+        private readonly CurseFeaturesApiService _features = new();
         private readonly string JsonFolder = @"D:\Projects\C# Projects\ModManager\Jsons";
 
         [Theory]
@@ -40,7 +41,7 @@ namespace ApiTesting
         [Fact]
         public async Task GetCategories_Json()
         {
-            var response = await _serivce.GetCategories(432, 6);
+            var response = await _features.GetCategories(432, 6);
             var expcetedJson = await File.ReadAllTextAsync($@"{JsonFolder}\getcategoriestest.json");
 
             Assert.Equal(expcetedJson, response);
@@ -73,7 +74,7 @@ namespace ApiTesting
         [Fact]
         public async Task GetMinecraftVersion_Json()
         {
-            var response = await _serivce.GetMinecraftVersions();
+            var response = await _features.GetMinecraftVersions();
             var expcetedJson = await File.ReadAllTextAsync($@"{JsonFolder}\minecraftversionstest.json");
 
             Assert.Equal(expcetedJson, response);
@@ -82,7 +83,7 @@ namespace ApiTesting
         [Fact]
         public async Task GetMinectaftModLoaders_Json()
         {
-            var response = await _serivce.GetMinecraftModLoaders(includeAll: true);
+            var response = await _features.GetMinecraftModLoaders(includeAll: true);
             var expcetedJson = await File.ReadAllTextAsync($@"{JsonFolder}\minecraftmodloaderstest.json");
 
             Assert.Equal(expcetedJson, response);

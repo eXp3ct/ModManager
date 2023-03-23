@@ -1,21 +1,16 @@
 ﻿using Core.Model;
 using CurseForgeApiLib.Client;
+using CurseForgeApiLib.Enums;
+using Features.Attributes;
+using ModManager.Model;
 using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace ModManager
 {
@@ -24,6 +19,26 @@ namespace ModManager
     /// </summary>
     public partial class MainWindow : Window
     {
+        public ViewState CurrentState { get; set; } = new()
+        {
+            GameId = 432,
+            ClassId = 6,
+            AuthorId = null,
+            CategoryId = null,
+            GameVersion = null,
+            GameVersionTypeId = null,
+            Index = 0,
+            ModLoaderType = null,
+            PageSize = 50,
+            SearchFilter = null,
+            Slug = null,
+            SortFields = null,
+            SortOrder = null
+        };
+        private int PageNumber { get; set; } = 1;
+        private readonly CurseModApiDeserializer _modDeserializer = new(new CurseModApiService());
+        private readonly CurseFeaturesApiDeserializer _featuresDeserializer = new();
+
         public MainWindow()
         {
             InitializeComponent();
@@ -34,28 +49,74 @@ namespace ModManager
             Environment.Exit(0);
         }
 
-        private async void Window_Activated(object sender, EventArgs e)
+        private async Task FetchData()
         {
-            var modFileService = new CurseModFileApiService();
-            var modDeserializer = new CurseModApiDeserializer(new CurseModApiService());
-            var modFileDeserializer = new CurseModFileApiDeserializer(new CurseModFileApiService());
-            //var mods = await deserializer.SearchMods();
-            var modIds = new List<int> { 222880, 325739, 291737, 390003, 819355,
-            810803,222880,325739, 291737};
-            var mods = await modDeserializer.GetMods(modIds);
-
+            //TODO кэшировать
+            var mods = await _modDeserializer.SearchMods(CurrentState);
             datagrid.ItemsSource = mods;
-            var links = mods[0].Links.WebsiteUrl.ToString();
-            MessageBox.Show(links);
-            //await StringToJson(await modFileService.GetModFiles(390003, gameVersion: "1.19.2"));
         }
 
-        private static async Task StringToJson(string response)
+        private async void Window_Activated(object sender, EventArgs e)
         {
-            var json = JsonConvert.DeserializeObject<dynamic>(response);
+            pageNumber.Content = PageNumber;
 
-            var path = System.IO.Path.Combine(@"D:\Projects\C# Projects\ModManager\Jsons", "modFiles.json");
-            await File.WriteAllTextAsync(path, JsonConvert.SerializeObject(json, Formatting.Indented));
+            var gameVersions = await _featuresDeserializer.GetMinecraftGameVersions();
+            var categories = await _featuresDeserializer.GetCategories(CurrentState.GameId, CurrentState.ClassId);
+
+            CategoryComboBox.ItemsSource = categories;
+            GameVersionComboBox.ItemsSource = gameVersions;
+            foreach(var sortField in Enum.GetNames(typeof(SearchSortFields)))
+                SortFieldComboBox.Items.Add(sortField);
+            foreach(var modLoader in Enum.GetNames(typeof(ModLoaderType)))
+                ModLoaderComboBox.Items.Add(modLoader);
+        }
+
+        private void PreviousPage_Click(object sender, RoutedEventArgs e)
+        {
+            pageNumber.Content = --PageNumber;
+        }
+
+        private void NextPage_Click(object sender, RoutedEventArgs e)
+        {
+            pageNumber.Content = ++PageNumber;
+        }
+
+        private void datagrid_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
+        {
+            var propertyDescriptor = e.PropertyDescriptor as PropertyDescriptor;
+
+            if (propertyDescriptor.Attributes.OfType<HideInDataGridAttribute>().Any())
+                e.Cancel = true;
+            if(e.Column is DataGridTextColumn column)
+            {
+                var style = new Style(typeof(TextBlock));
+                style.Setters.Add(new Setter(TextBlock.TextWrappingProperty, TextWrapping.Wrap));
+                column.ElementStyle = style;
+            }
+            if (e.Column.Header.Equals(nameof(Mod.Selected)))
+            {
+                var selectionColumn = e.Column as DataGridCheckBoxColumn;
+                selectionColumn.IsReadOnly = false;
+            }
+            else
+            {
+                e.Column.IsReadOnly = true;
+            }
+        }
+
+        private async void GameVersionComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            CurrentState.GameVersion = (GameVersionComboBox.SelectedItem as MinecraftGameVersion).VersionString;
+            var mods = await _modDeserializer.SearchMods(CurrentState);
+            datagrid.ItemsSource = mods;
+        }
+
+        private async void CategoryComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            CurrentState.CategoryId = (CategoryComboBox.SelectedItem as Category).Id;
+
+            var mods = await _modDeserializer.SearchMods(CurrentState);
+            datagrid.ItemsSource = mods;
         }
     }
 }

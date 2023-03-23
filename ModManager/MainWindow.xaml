@@ -3,18 +3,20 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
         xmlns:local="clr-namespace:ModManager"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800" Activated="Window_Activated">
+        Title="MainWindow" Height="700" Width="1200" Activated="Window_Activated" FontSize="14">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="352*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
-        <Menu>
+        <Menu Grid.Row="0" Grid.ColumnSpan="2">
             <MenuItem Header="Файл">
                 <MenuItem Header="Выбрать папку" />
                 <MenuItem Header="Открыть" />
@@ -27,18 +29,51 @@
                 <MenuItem Header="О программе" />
             </MenuItem>
         </Menu>
-        <ToolBarTray VerticalAlignment="Top">
+        <ToolBarTray Grid.Row="0" Grid.ColumnSpan="2" VerticalAlignment="Center" Height="Auto" Margin="0 0 0 5">
             <ToolBar VerticalAlignment="Top" HorizontalContentAlignment="Center" AutomationProperties.HelpText="This is a combobox">
-                <ComboBox Text="Combo box" Width="100">
-                    <ComboBoxItem>1</ComboBoxItem>
-                    <ComboBoxItem>2</ComboBoxItem>
-                    <ComboBoxItem>3</ComboBoxItem>
-                </ComboBox>
+                <Button Width="25" Click="PreviousPage_Click">
+                    <TextBlock Text="&lt;"/>
+                </Button>
+                <Label Name="pageNumber" Width="25"/>
+                <Button Width="25" Click="NextPage_Click">
+                    <TextBlock Text="&gt;"/>
+                </Button>
+                <Separator/>
+                <Label Content="Версия игры"/>
+                <ComboBox Name="GameVersionComboBox" MinWidth="100" Width="Auto" 
+                          SelectionChanged="GameVersionComboBox_SelectionChanged" DisplayMemberPath="VersionString"/>
+                <Label Content="Категория"/>
+                <ComboBox Name="CategoryComboBox" MinWidth="100" Width="Auto" 
+                          SelectionChanged="CategoryComboBox_SelectionChanged" DisplayMemberPath="Name"/>
+                <Label Content="Загрузчик"/>
+                <ComboBox Name="ModLoaderComboBox" MinWidth="100" Width="Auto"/>
+                <Label Content="Сортировать по"/>
+                <ComboBox Name="SortFieldComboBox" MinWidth="100" Width="Auto"/>
+                <CheckBox Content="По убыванию" Name="DescendingCheckBox"/>
+                <TextBox Name="SearchFilter" Text="Поиск..." Width="150"/>
             </ToolBar>
         </ToolBarTray>
 
-        <DataGrid Grid.Row="1" Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Name="datagrid" Margin="0,0,0,-2" ScrollViewer.HorizontalScrollBarVisibility="Visible" CanUserReorderColumns="False" CanUserResizeColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeRows="False" HorizontalScrollBarVisibility="Visible">
-            <!-- Add DataGrid columns and other properties here -->
+        <DataGrid Grid.Row="1" Grid.Column="0" Name="datagrid" 
+                  ScrollViewer.HorizontalScrollBarVisibility="Disabled" CanUserReorderColumns="False" 
+                  CanUserResizeColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" 
+                  CanUserResizeRows="False" HorizontalScrollBarVisibility="Disabled"
+                  AutoGeneratingColumn="datagrid_AutoGeneratingColumn" VerticalContentAlignment="Center" 
+                  MaxColumnWidth="420" HorizontalContentAlignment="Center" GridLinesVisibility="None">
+            <DataGrid.Resources>
+                <Style TargetType="DataGridRow">
+                    <Setter Property="Margin" Value="0 2"/>
+                </Style>
+            </DataGrid.Resources>
+            <DataGrid.CellStyle>
+                <Style TargetType="DataGridCell">
+                    <Setter Property="VerticalAlignment" Value="Center"/>
+                </Style>
+            </DataGrid.CellStyle>
         </DataGrid>
+        <StackPanel Grid.Row="1" Grid.Column="1" VerticalAlignment="Stretch">
+            <Label Content="Mod Name"/>
+        </StackPanel>
+
     </Grid>
 </Window>

@@ -1,5 +1,6 @@
 ﻿using Core.Model;
 using CurseForgeApiLib.Enums;
+using ModManager.Model;
 
 namespace CurseForgeApiLib.Behaivour
 {
@@ -13,8 +14,7 @@ namespace CurseForgeApiLib.Behaivour
             int pageSize = default);
         public Task<List<Mod>> GetMods(List<int> modIds);
         //TODO Deserialize HTML 
-        public Task<List<MinecraftGameVersion>> GetMinecraftGameVersions(bool sortDescending = false);
-        public Task<List<MinecraftModLoaderIndex>> GetMinecraftModLoaders(string version = null, bool includeAll = true);
         public Task<string> GetModDescription(int modId);
+        public Task<List<Mod>> SearchMods(ViewState state);
     }
 }
