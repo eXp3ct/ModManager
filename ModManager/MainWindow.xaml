@@ -40,21 +40,20 @@
                 </Button>
                 <Separator/>
                 <Label Content="Версия игры"/>
-                <ComboBox Name="GameVersionComboBox" MinWidth="100" Width="Auto" 
-                          SelectionChanged="GameVersionComboBox_SelectionChanged" DisplayMemberPath="VersionString"/>
+                <ComboBox Name="GameVersionComboBox" MinWidth="100" Width="Auto" DisplayMemberPath="VersionString" SelectionChanged="GameVersionComboBox_SelectionChanged"/>
                 <Label Content="Категория"/>
-                <ComboBox Name="CategoryComboBox" MinWidth="100" Width="Auto" 
+                <ComboBox Name="CategoryComboBox" MinWidth="100" Width="Auto"
                           SelectionChanged="CategoryComboBox_SelectionChanged" DisplayMemberPath="Name"/>
                 <Label Content="Загрузчик"/>
-                <ComboBox Name="ModLoaderComboBox" MinWidth="100" Width="Auto"/>
+                <ComboBox Name="ModLoaderComboBox" MinWidth="100" Width="Auto" SelectionChanged="ModLoaderComboBox_SelectionChanged" />
                 <Label Content="Сортировать по"/>
-                <ComboBox Name="SortFieldComboBox" MinWidth="100" Width="Auto"/>
-                <CheckBox Content="По убыванию" Name="DescendingCheckBox"/>
-                <TextBox Name="SearchFilter" Text="Поиск..." Width="150"/>
+                <ComboBox Name="SortFieldComboBox" MinWidth="100" Width="Auto" SelectionChanged="SortFieldComboBox_SelectionChanged"/>
+                <CheckBox Content="По убыванию" Name="DescendingCheckBox" Checked="DescendingCheckBox_Checked" />
+                <TextBox Name="SearchFilter" Text="Поиск..." Width="150" KeyUp="SearchFilter_KeyUp" />
             </ToolBar>
         </ToolBarTray>
 
-        <DataGrid Grid.Row="1" Grid.Column="0" Name="datagrid" 
+        <DataGrid Grid.Row="1" Grid.Column="0" Name="datagrid"
                   ScrollViewer.HorizontalScrollBarVisibility="Disabled" CanUserReorderColumns="False" 
                   CanUserResizeColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" 
                   CanUserResizeRows="False" HorizontalScrollBarVisibility="Disabled"
@@ -74,6 +73,5 @@
         <StackPanel Grid.Row="1" Grid.Column="1" VerticalAlignment="Stretch">
             <Label Content="Mod Name"/>
         </StackPanel>
-
     </Grid>
 </Window>

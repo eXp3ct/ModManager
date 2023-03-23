@@ -58,7 +58,7 @@ namespace CurseForgeApiLib.Client
             if (!string.IsNullOrEmpty(searchFilter)) queryString.Append($"&searchFilter={Uri.EscapeDataString(searchFilter)}");
             queryString.Append($"&sortField={(int)sortField}");
             queryString.Append($"&sortOrder={sortOrder}");
-            queryString.Append($"&modLoader={(int)modLoaderType}");
+            queryString.Append($"&modLoaderType={(int)modLoaderType}");
             if (gameVersionTypeId != 0) queryString.Append($"&gameVersionTypeId={gameVersionTypeId}");
             if (authorId != 0) queryString.Append($"&authorId={authorId}");
             if (!string.IsNullOrEmpty(slug)) queryString.Append($"&slug={Uri.EscapeDataString(slug)}");

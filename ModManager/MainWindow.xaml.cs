@@ -19,7 +19,7 @@ namespace ModManager
     /// </summary>
     public partial class MainWindow : Window
     {
-        public ViewState CurrentState { get; set; } = new()
+        public ViewState State { get; set; } = new()
         {
             GameId = 432,
             ClassId = 6,
@@ -49,19 +49,19 @@ namespace ModManager
             Environment.Exit(0);
         }
 
-        private async Task FetchData()
+        public async Task FetchMods()
         {
-            //TODO кэшировать
-            var mods = await _modDeserializer.SearchMods(CurrentState);
+            var mods = await _modDeserializer.SearchMods(State);
             datagrid.ItemsSource = mods;
         }
-
         private async void Window_Activated(object sender, EventArgs e)
         {
             pageNumber.Content = PageNumber;
+            await FetchMods();
+            State.PropertyChanged += CurrentState_PropertyChanged;
 
             var gameVersions = await _featuresDeserializer.GetMinecraftGameVersions();
-            var categories = await _featuresDeserializer.GetCategories(CurrentState.GameId, CurrentState.ClassId);
+            var categories = await _featuresDeserializer.GetCategories(State.GameId, State.ClassId);
 
             CategoryComboBox.ItemsSource = categories;
             GameVersionComboBox.ItemsSource = gameVersions;
@@ -69,6 +69,11 @@ namespace ModManager
                 SortFieldComboBox.Items.Add(sortField);
             foreach(var modLoader in Enum.GetNames(typeof(ModLoaderType)))
                 ModLoaderComboBox.Items.Add(modLoader);
+        }
+
+        private async void CurrentState_PropertyChanged(object? sender, PropertyChangedEventArgs e)
+        {
+            await FetchMods();
         }
 
         private void PreviousPage_Click(object sender, RoutedEventArgs e)
@@ -104,19 +109,46 @@ namespace ModManager
             }
         }
 
-        private async void GameVersionComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void CategoryComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            CurrentState.GameVersion = (GameVersionComboBox.SelectedItem as MinecraftGameVersion).VersionString;
-            var mods = await _modDeserializer.SearchMods(CurrentState);
-            datagrid.ItemsSource = mods;
+            State.CategoryId = (CategoryComboBox.SelectedItem as Category).Id;
         }
 
-        private async void CategoryComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void GameVersionComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            CurrentState.CategoryId = (CategoryComboBox.SelectedItem as Category).Id;
+            State.GameVersion = (GameVersionComboBox.SelectedItem as MinecraftGameVersion).VersionString;
+        }
 
-            var mods = await _modDeserializer.SearchMods(CurrentState);
-            datagrid.ItemsSource = mods;
+        private void ModLoaderComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if(Enum.TryParse<ModLoaderType>((string)ModLoaderComboBox.SelectedItem, true, out var result)){
+                State.ModLoaderType = result;
+            }
+        }
+
+        private void SortFieldComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (Enum.TryParse<SearchSortFields>((string)SortFieldComboBox.SelectedItem, true, out var result))
+            {
+                State.SortFields = result;
+            }
+        }
+
+        private void DescendingCheckBox_Checked(object sender, RoutedEventArgs e)
+        {
+            if (DescendingCheckBox.IsChecked == true)
+                State.SortOrder = "desc";
+            else
+                State.SortOrder = "asc";
+        }
+
+        private void SearchFilter_KeyUp(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            if(e.Key == System.Windows.Input.Key.Enter)
+            {
+                var searchString = SearchFilter.Text;
+                State.SearchFilter = searchString;
+            }
         }
     }
 }
