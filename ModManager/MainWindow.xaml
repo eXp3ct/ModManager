@@ -3,10 +3,8 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
-        xmlns:local="clr-namespace:ModManager"
         mc:Ignorable="d"
-        Title="MainWindow" Height="700" Width="1200" Activated="Window_Activated" FontSize="14">
+        Title="MainWindow" Height="700" Width="1200" FontSize="14" Loaded="Window_Loaded">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -50,28 +48,42 @@
                 <ComboBox Name="SortFieldComboBox" MinWidth="100" Width="Auto" SelectionChanged="SortFieldComboBox_SelectionChanged"/>
                 <CheckBox Content="По убыванию" Name="DescendingCheckBox" Checked="DescendingCheckBox_Checked" />
                 <TextBox Name="SearchFilter" Text="Поиск..." Width="150" KeyUp="SearchFilter_KeyUp" />
+                <Label Content="Размер страницы"/>
+                <ComboBox Name="PageSizeComboBox" MinWidth="100" Width="Auto" SelectionChanged="PageSizeComboBox_SelectionChanged"/>
             </ToolBar>
         </ToolBarTray>
 
-        <DataGrid Grid.Row="1" Grid.Column="0" Name="datagrid"
+        <DataGrid Grid.Row="1" Grid.Column="0" Name="datagrid" SelectionMode="Single" 
                   ScrollViewer.HorizontalScrollBarVisibility="Disabled" CanUserReorderColumns="False" 
                   CanUserResizeColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" 
                   CanUserResizeRows="False" HorizontalScrollBarVisibility="Disabled"
                   AutoGeneratingColumn="datagrid_AutoGeneratingColumn" VerticalContentAlignment="Center" 
-                  MaxColumnWidth="420" HorizontalContentAlignment="Center" GridLinesVisibility="None">
-            <DataGrid.Resources>
-                <Style TargetType="DataGridRow">
-                    <Setter Property="Margin" Value="0 2"/>
-                </Style>
-            </DataGrid.Resources>
+                  MaxColumnWidth="420" HorizontalContentAlignment="Center" GridLinesVisibility="Horizontal" SelectionChanged="datagrid_SelectionChanged">
             <DataGrid.CellStyle>
                 <Style TargetType="DataGridCell">
-                    <Setter Property="VerticalAlignment" Value="Center"/>
+                    <Setter Property="Padding" Value="10"/>
                 </Style>
             </DataGrid.CellStyle>
         </DataGrid>
         <StackPanel Grid.Row="1" Grid.Column="1" VerticalAlignment="Stretch">
-            <Label Content="Mod Name"/>
+            <TextBlock TextAlignment="Center" TextWrapping="Wrap">
+                <Run FontWeight="Bold" Text="Mod Name" Name="ModName"/>
+                <LineBreak/>
+                <Run Name="ModDescription"/>
+                <LineBreak/>
+                <Label>
+                </Label>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>       
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Column="0" Content="Website: " VerticalAlignment="Center"/>
+                    <TextBlock Grid.Column="1" TextAlignment="Center" VerticalAlignment="Center" TextWrapping="Wrap">
+                        <Hyperlink Name="ModWebSiteUrl" RequestNavigate="ModWebSiteUrl_RequestNavigate_1"/>  
+                    </TextBlock>
+                </Grid>
+            </TextBlock>
         </StackPanel>
     </Grid>
 </Window>

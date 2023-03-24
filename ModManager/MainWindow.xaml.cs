@@ -5,12 +5,15 @@ using Features.Attributes;
 using ModManager.Model;
 using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Documents;
 
 namespace ModManager
 {
@@ -19,6 +22,7 @@ namespace ModManager
     /// </summary>
     public partial class MainWindow : Window
     {
+        private const int PaginationLimit = 10000;
         public ViewState State { get; set; } = new()
         {
             GameId = 432,
@@ -28,16 +32,18 @@ namespace ModManager
             GameVersion = null,
             GameVersionTypeId = null,
             Index = 0,
-            ModLoaderType = null,
-            PageSize = 50,
+            ModLoaderType = ModLoaderType.Any,
+            PageSize = 10,
             SearchFilter = null,
             Slug = null,
             SortFields = null,
             SortOrder = null
         };
-        private int PageNumber { get; set; } = 1;
+
+        private readonly List<int> PageSizes = new() { 5, 10, 15, 20, 30, 50};
         private readonly CurseModApiDeserializer _modDeserializer = new(new CurseModApiService());
         private readonly CurseFeaturesApiDeserializer _featuresDeserializer = new();
+        private int PageNumber { get; set; } = 1;
 
         public MainWindow()
         {
@@ -54,22 +60,6 @@ namespace ModManager
             var mods = await _modDeserializer.SearchMods(State);
             datagrid.ItemsSource = mods;
         }
-        private async void Window_Activated(object sender, EventArgs e)
-        {
-            pageNumber.Content = PageNumber;
-            await FetchMods();
-            State.PropertyChanged += CurrentState_PropertyChanged;
-
-            var gameVersions = await _featuresDeserializer.GetMinecraftGameVersions();
-            var categories = await _featuresDeserializer.GetCategories(State.GameId, State.ClassId);
-
-            CategoryComboBox.ItemsSource = categories;
-            GameVersionComboBox.ItemsSource = gameVersions;
-            foreach(var sortField in Enum.GetNames(typeof(SearchSortFields)))
-                SortFieldComboBox.Items.Add(sortField);
-            foreach(var modLoader in Enum.GetNames(typeof(ModLoaderType)))
-                ModLoaderComboBox.Items.Add(modLoader);
-        }
 
         private async void CurrentState_PropertyChanged(object? sender, PropertyChangedEventArgs e)
         {
@@ -78,12 +68,18 @@ namespace ModManager
 
         private void PreviousPage_Click(object sender, RoutedEventArgs e)
         {
+            if (PageNumber == 1)
+                return;
             pageNumber.Content = --PageNumber;
+            State.Index -= State.PageSize;
         }
 
         private void NextPage_Click(object sender, RoutedEventArgs e)
         {
+            if (State.Index + State.PageSize > PaginationLimit)
+                return;
             pageNumber.Content = ++PageNumber;
+            State.Index += State.PageSize;
         }
 
         private void datagrid_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
@@ -121,17 +117,12 @@ namespace ModManager
 
         private void ModLoaderComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if(Enum.TryParse<ModLoaderType>((string)ModLoaderComboBox.SelectedItem, true, out var result)){
-                State.ModLoaderType = result;
-            }
+            State.ModLoaderType = (ModLoaderType)ModLoaderComboBox.SelectedItem;
         }
 
         private void SortFieldComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (Enum.TryParse<SearchSortFields>((string)SortFieldComboBox.SelectedItem, true, out var result))
-            {
-                State.SortFields = result;
-            }
+            State.SortFields = (SearchSortFields)SortFieldComboBox.SelectedItem;
         }
 
         private void DescendingCheckBox_Checked(object sender, RoutedEventArgs e)
@@ -149,6 +140,53 @@ namespace ModManager
                 var searchString = SearchFilter.Text;
                 State.SearchFilter = searchString;
             }
+        }
+
+        private async void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            pageNumber.Content = PageNumber;
+            await FetchMods();
+            State.PropertyChanged += CurrentState_PropertyChanged;
+
+            var gameVersions = await _featuresDeserializer.GetMinecraftGameVersions();
+            var categories = await _featuresDeserializer.GetCategories(State.GameId, State.ClassId);
+
+            CategoryComboBox.ItemsSource = categories;
+            GameVersionComboBox.ItemsSource = gameVersions;
+            SortFieldComboBox.ItemsSource = (SearchSortFields[])Enum.GetValues(typeof(SearchSortFields));
+            ModLoaderComboBox.ItemsSource = (ModLoaderType[])Enum.GetValues(typeof(ModLoaderType));
+            PageSizeComboBox.ItemsSource = PageSizes;
+        }
+
+        private void PageSizeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            State.PageSize = (int)PageSizeComboBox.SelectedItem;
+        }
+
+        private void datagrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (datagrid.SelectedItem == null)
+                return;
+            var selectedMod = (Mod)datagrid.SelectedItem;
+            ModName.Text = selectedMod.Name;
+            ModDescription.Text = selectedMod.Summary;
+            ModWebSiteUrl.NavigateUri = new Uri(selectedMod.Links.WebsiteUrl);
+            ModWebSiteUrl.Inlines.Clear();
+            ModWebSiteUrl.Inlines.Add(selectedMod.Links.WebsiteUrl);
+        }
+
+        private void ModWebSiteUrl_RequestNavigate_1(object sender, System.Windows.Navigation.RequestNavigateEventArgs e)
+        {
+            string url = e.Uri.AbsoluteUri;
+            try
+            {
+                Process.Start(new ProcessStartInfo("chrome.exe", url));
+            }
+            catch (Win32Exception)
+            {
+                Process.Start(new ProcessStartInfo(@"C:\Program Files\Google\Chrome\Application\chrome.exe", url));
+            }
+            e.Handled = true;
         }
     }
 }

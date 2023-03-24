@@ -67,7 +67,7 @@ namespace CurseForgeApiLib.Client
                 searchFilter: state.SearchFilter,
                 sortField: state.SortFields ?? 0,
                 sortOrder: state.SortOrder ?? "asc",
-                modLoaderType: state.ModLoaderType ?? ModLoaderType.Any,
+                modLoaderType: state.ModLoaderType,
                 gameVersionTypeId: state.GameVersionTypeId ?? 0,
                 authorId: state.AuthorId ?? 0,
                 slug: state.Slug,

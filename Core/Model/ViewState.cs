@@ -36,14 +36,7 @@ namespace ModManager.Model
         public string GameVersion
         {
             get { return _gameVersion; }
-            set
-            {
-                if (_gameVersion != value)
-                {
-                    _gameVersion = value;
-                    OnPropertyChanged(nameof(GameVersion));
-                }
-            }
+            set { _gameVersion = value; OnPropertyChanged(); }
         }
 
         private string? _searchFilter;
@@ -67,8 +60,8 @@ namespace ModManager.Model
             set { _sortOrder = value; OnPropertyChanged(); }
         }
 
-        private ModLoaderType? _modLoaderType;
-        public ModLoaderType? ModLoaderType
+        private ModLoaderType _modLoaderType;
+        public ModLoaderType ModLoaderType
         {
             get { return _modLoaderType; }
             set { _modLoaderType = value; OnPropertyChanged(); }
