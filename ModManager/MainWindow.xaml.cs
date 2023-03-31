@@ -2,8 +2,11 @@
 using CurseForgeApiLib.Client;
 using CurseForgeApiLib.Enums;
 using Features.Attributes;
+using HttpDownloader;
+using InMemoryCahing;
 using ModManager.Model;
 using Newtonsoft.Json;
+using Ookii.Dialogs.Wpf;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -23,7 +26,7 @@ namespace ModManager
     public partial class MainWindow : Window
     {
         private const int PaginationLimit = 10000;
-        public ViewState State { get; set; } = new()
+        public static ViewState State { get; set; } = new()
         {
             GameId = 432,
             ClassId = 6,
@@ -32,7 +35,7 @@ namespace ModManager
             GameVersion = null,
             GameVersionTypeId = null,
             Index = 0,
-            ModLoaderType = ModLoaderType.Any,
+            ModLoaderType = ModLoaderType.Forge,
             PageSize = 10,
             SearchFilter = null,
             Slug = null,
@@ -41,13 +44,22 @@ namespace ModManager
         };
 
         private readonly List<int> PageSizes = new() { 5, 10, 15, 20, 30, 50};
-        private readonly CurseModApiDeserializer _modDeserializer = new(new CurseModApiService());
+        private List<Mod> DownloadedMods = new();
         private readonly CurseFeaturesApiDeserializer _featuresDeserializer = new();
+        private readonly ModsProvider _modsProvider = new();
         private int PageNumber { get; set; } = 1;
+        private string FolderPath { get; set; }
 
         public MainWindow()
         {
             InitializeComponent();
+
+            _modsProvider.SelectedModsChanged += _modsProvider_SelectedModsChanged;
+        }
+
+        private void _modsProvider_SelectedModsChanged(object? sender, IList<Mod> e)
+        {
+            //TODO Downloading
         }
 
         private void MenuItem_Click(object sender, RoutedEventArgs e)
@@ -57,7 +69,7 @@ namespace ModManager
 
         public async Task FetchMods()
         {
-            var mods = await _modDeserializer.SearchMods(State);
+            var mods = await _modsProvider.GetMods(State);
             datagrid.ItemsSource = mods;
         }
 
@@ -80,6 +92,9 @@ namespace ModManager
                 return;
             pageNumber.Content = ++PageNumber;
             State.Index += State.PageSize;
+
+            //var mods = string.Join("\n", _modsProvider.SelectedMods.Select(mod => mod.Name));
+            //MessageBox.Show(mods);
         }
 
         private void datagrid_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
@@ -107,12 +122,13 @@ namespace ModManager
 
         private void CategoryComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            State.CategoryId = (CategoryComboBox.SelectedItem as Category).Id;
+            State.CategoryId = ((Category)CategoryComboBox.SelectedItem).Id;
         }
 
         private void GameVersionComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            State.GameVersion = (GameVersionComboBox.SelectedItem as MinecraftGameVersion).VersionString;
+            State.GameVersion = ((MinecraftGameVersion)GameVersionComboBox.SelectedItem).VersionString;
+            _modsProvider.ClearSelectedMods();
         }
 
         private void ModLoaderComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -163,30 +179,64 @@ namespace ModManager
             State.PageSize = (int)PageSizeComboBox.SelectedItem;
         }
 
-        private void datagrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void MenuItem_Click_1(object sender, RoutedEventArgs e)
         {
-            if (datagrid.SelectedItem == null)
-                return;
-            var selectedMod = (Mod)datagrid.SelectedItem;
-            ModName.Text = selectedMod.Name;
-            ModDescription.Text = selectedMod.Summary;
-            ModWebSiteUrl.NavigateUri = new Uri(selectedMod.Links.WebsiteUrl);
-            ModWebSiteUrl.Inlines.Clear();
-            ModWebSiteUrl.Inlines.Add(selectedMod.Links.WebsiteUrl);
+            var dialog = new VistaFolderBrowserDialog();
+            if (dialog.ShowDialog() == true)
+            {
+                FolderPath = dialog.SelectedPath;   
+            }
         }
 
-        private void ModWebSiteUrl_RequestNavigate_1(object sender, System.Windows.Navigation.RequestNavigateEventArgs e)
+        private async void Button_Click(object sender, RoutedEventArgs e)
         {
-            string url = e.Uri.AbsoluteUri;
-            try
+            var downloader = new ModDownloader(State, FolderPath);
+
+            ProgressBar.Maximum = 100;
+            ProgressBar.Minimum = 0;
+            var progress = new Progress<double>(value => ProgressBar.Value += value);
+
+            downloader.DependenciesFound += Downloader_DependenciesFound;
+
+            var selectedMods = (List<Mod>)_modsProvider.GetSelectedMods();
+            DownloadedMods.AddRange(selectedMods);
+            await downloader.StartDownloading(selectedMods, progress);
+
+            MessageBox.Show($"{selectedMods.Count} was successfuly installed!");
+            _modsProvider.ClearSelectedMods();
+            ProgressBar.Value = 0;
+        }
+
+        private void Downloader_DependenciesFound(object? sender, string e)
+        {
+            MessageBox.Show($"Найдены следующие зависимости: \n{e}\nОни будут установлены автоматически",
+                "Найдены зависимости", MessageBoxButton.OK, MessageBoxImage.Warning);
+        }
+
+        private async void MenuItem_Click_2(object sender, RoutedEventArgs e)
+        {
+            var dialog = new VistaFolderBrowserDialog();
+            if (dialog.ShowDialog() == true)
             {
-                Process.Start(new ProcessStartInfo("chrome.exe", url));
+                var path = dialog.SelectedPath;
+
+                var json = JsonConvert.SerializeObject(DownloadedMods, Formatting.Indented);
+
+                await File.WriteAllTextAsync($"{path}/save.json", json);
             }
-            catch (Win32Exception)
+        }
+
+        private async void MenuItem_Click_3(object sender, RoutedEventArgs e)
+        {
+            var dialog = new VistaOpenFileDialog();
+            if(dialog.ShowDialog() == true)
             {
-                Process.Start(new ProcessStartInfo(@"C:\Program Files\Google\Chrome\Application\chrome.exe", url));
+                var path = dialog.FileName;
+                var jsonString = await File.ReadAllTextAsync(path);
+                var mods = JsonConvert.DeserializeObject<List<Mod>>(jsonString);
+
+                _modsProvider.SetSelectedMods(mods);
             }
-            e.Handled = true;
         }
     }
 }

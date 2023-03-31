@@ -3,10 +3,13 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:usrc="clr-namespace:ModManager.CustomControls"
         mc:Ignorable="d"
-        Title="MainWindow" Height="700" Width="1200" FontSize="14" Loaded="Window_Loaded">
+        Title="MainWindow" Height="700" Width="1200" FontSize="14" Loaded="Window_Loaded"
+        Background="WhiteSmoke">
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="352*"/>
         </Grid.RowDefinitions>
@@ -16,9 +19,9 @@
         </Grid.ColumnDefinitions>
         <Menu Grid.Row="0" Grid.ColumnSpan="2">
             <MenuItem Header="Файл">
-                <MenuItem Header="Выбрать папку" />
-                <MenuItem Header="Открыть" />
-                <MenuItem Header="Загрузить" />
+                <MenuItem Header="Выбрать папку" Click="MenuItem_Click_1" />
+                <MenuItem Header="Сохранить" Click="MenuItem_Click_2" />
+                <MenuItem Header="Загрузить" Click="MenuItem_Click_3" />
                 <Separator />
                 <MenuItem Header="Выйти" Click="MenuItem_Click"/>
             </MenuItem>
@@ -26,9 +29,9 @@
             <MenuItem Header="Помощь">
                 <MenuItem Header="О программе" />
             </MenuItem>
-        </Menu>
-        <ToolBarTray Grid.Row="0" Grid.ColumnSpan="2" VerticalAlignment="Center" Height="Auto" Margin="0 0 0 5">
-            <ToolBar VerticalAlignment="Top" HorizontalContentAlignment="Center" AutomationProperties.HelpText="This is a combobox">
+        </Menu >
+        <ToolBarTray Grid.Row="1" Grid.ColumnSpan="2" HorizontalAlignment="Stretch" VerticalAlignment="Center" Height="Auto" Margin="0 0 0 5">
+            <ToolBar>
                 <Button Width="25" Click="PreviousPage_Click">
                     <TextBlock Text="&lt;"/>
                 </Button>
@@ -49,41 +52,26 @@
                 <CheckBox Content="По убыванию" Name="DescendingCheckBox" Checked="DescendingCheckBox_Checked" />
                 <TextBox Name="SearchFilter" Text="Поиск..." Width="150" KeyUp="SearchFilter_KeyUp" />
                 <Label Content="Размер страницы"/>
-                <ComboBox Name="PageSizeComboBox" MinWidth="100" Width="Auto" SelectionChanged="PageSizeComboBox_SelectionChanged"/>
+                <ComboBox Name="PageSizeComboBox" MinWidth="70" Width="Auto" SelectionChanged="PageSizeComboBox_SelectionChanged"/>
             </ToolBar>
         </ToolBarTray>
 
-        <DataGrid Grid.Row="1" Grid.Column="0" Name="datagrid" SelectionMode="Single" 
+        <DataGrid Grid.Row="2" Grid.Column="0" Name="datagrid" SelectionMode="Single"
                   ScrollViewer.HorizontalScrollBarVisibility="Disabled" CanUserReorderColumns="False" 
                   CanUserResizeColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" 
                   CanUserResizeRows="False" HorizontalScrollBarVisibility="Disabled"
                   AutoGeneratingColumn="datagrid_AutoGeneratingColumn" VerticalContentAlignment="Center" 
-                  MaxColumnWidth="420" HorizontalContentAlignment="Center" GridLinesVisibility="Horizontal" SelectionChanged="datagrid_SelectionChanged">
+                  MaxColumnWidth="420" HorizontalContentAlignment="Center" GridLinesVisibility="Horizontal" >
             <DataGrid.CellStyle>
                 <Style TargetType="DataGridCell">
                     <Setter Property="Padding" Value="10"/>
                 </Style>
             </DataGrid.CellStyle>
         </DataGrid>
-        <StackPanel Grid.Row="1" Grid.Column="1" VerticalAlignment="Stretch">
-            <TextBlock TextAlignment="Center" TextWrapping="Wrap">
-                <Run FontWeight="Bold" Text="Mod Name" Name="ModName"/>
-                <LineBreak/>
-                <Run Name="ModDescription"/>
-                <LineBreak/>
-                <Label>
-                </Label>
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="*"/>       
-                    </Grid.ColumnDefinitions>
-                    <Label Grid.Column="0" Content="Website: " VerticalAlignment="Center"/>
-                    <TextBlock Grid.Column="1" TextAlignment="Center" VerticalAlignment="Center" TextWrapping="Wrap">
-                        <Hyperlink Name="ModWebSiteUrl" RequestNavigate="ModWebSiteUrl_RequestNavigate_1"/>  
-                    </TextBlock>
-                </Grid>
-            </TextBlock>
+        <usrc:ModDescription Grid.Column="1" Grid.Row="2" x:Name="ModDescription" Mod="{Binding ElementName=datagrid, Path=SelectedItem}"/>
+        <StackPanel Orientation="Vertical" Grid.Row="2" Grid.Column="1" VerticalAlignment="Bottom" Margin="10">
+            <ProgressBar VerticalAlignment="Bottom" Height="30" Margin="0 0 0 5" Name="ProgressBar"/>
+            <Button Content="Загрузить" Height="50"   Click="Button_Click"/>
         </StackPanel>
     </Grid>
 </Window>

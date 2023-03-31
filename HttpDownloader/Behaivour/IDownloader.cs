@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Core.Model.Data
+namespace HttpDownloader.Behaivour
 {
-    public class ModFileDownloadUrlData
+    public interface IDownloader
     {
-        public string? Data { get; set; }
+        public Task<byte[]> Download(string url); 
     }
 }

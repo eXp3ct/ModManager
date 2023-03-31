@@ -11,7 +11,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core", "Core\Core.csproj", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApiTesting", "ApiTesting\ApiTesting.csproj", "{337FAA77-CC5A-4471-818D-A0868C8EFF9F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Features", "Features\Features.csproj", "{52055C0A-927F-4DDB-A751-F702AEA14869}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Features", "Features\Features.csproj", "{52055C0A-927F-4DDB-A751-F702AEA14869}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InMemoryCahing", "InMemoryCahing\InMemoryCahing.csproj", "{72B6AFC4-4B50-43E6-ABF1-D9290470DBE9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HttpDownloader", "HttpDownloader\HttpDownloader.csproj", "{0BC2D45D-830F-454A-B3E4-BA16A05D216C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +43,14 @@ Global
 		{52055C0A-927F-4DDB-A751-F702AEA14869}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{52055C0A-927F-4DDB-A751-F702AEA14869}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{52055C0A-927F-4DDB-A751-F702AEA14869}.Release|Any CPU.Build.0 = Release|Any CPU
+		{72B6AFC4-4B50-43E6-ABF1-D9290470DBE9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{72B6AFC4-4B50-43E6-ABF1-D9290470DBE9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{72B6AFC4-4B50-43E6-ABF1-D9290470DBE9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{72B6AFC4-4B50-43E6-ABF1-D9290470DBE9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0BC2D45D-830F-454A-B3E4-BA16A05D216C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0BC2D45D-830F-454A-B3E4-BA16A05D216C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0BC2D45D-830F-454A-B3E4-BA16A05D216C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0BC2D45D-830F-454A-B3E4-BA16A05D216C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

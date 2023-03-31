@@ -2,6 +2,7 @@
 using Core.Model.Data;
 using CurseForgeApiLib.Behaivour;
 using CurseForgeApiLib.Enums;
+using ModManager.Model;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -36,9 +37,11 @@ namespace CurseForgeApiLib.Client
             return fileData.Data;
         }
 
-        public async Task<string> GetModFileDownloadUrl(int modId, int fileId)
+        public async Task<string?> GetModFileDownloadUrl(int modId, int fileId)
         {
             var response = await _service.GetModFileDownloadUrl(modId, fileId);
+            if (string.IsNullOrEmpty(response))
+                return null;
             var fileDownloadUrlData = JsonConvert.DeserializeObject<ModFileDownloadUrlData>(response);
 
             return fileDownloadUrlData.Data;
@@ -53,6 +56,14 @@ namespace CurseForgeApiLib.Client
             var filesData = JsonConvert.DeserializeObject<ModsFileData>(response);
 
             return filesData.Data;
+        }
+
+        public async Task<List<ModFile>> GetModFiles(int modId, ViewState state)
+        {
+            return await GetModFiles(
+                modId: modId,
+                gameVersion: state.GameVersion,
+                modLoaderType: state.ModLoaderType);
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="ModManager.CustomControls.LabledUrl"
+﻿<UserControl x:Class="ModManager.CustomControls.Url"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -11,7 +11,10 @@
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <Label Grid.Column="0" Content="Website: " VerticalAlignment="Center"/>
-        
+        <TextBlock Grid.Column="1" TextAlignment="Center" VerticalAlignment="Center">
+            <Hyperlink DataContext="{Binding RelativeSource={RelativeSource AncestorType=UserControl}}" NavigateUri="{Binding Path=Link}" RequestNavigate="Hyperlink_RequestNavigate">
+                <TextBlock Text="{Binding Path=Link}"/>
+            </Hyperlink>
+        </TextBlock>
     </Grid>
 </UserControl>
