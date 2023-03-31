@@ -2,6 +2,7 @@
 using Core.Model.Data;
 using CurseForgeApiLib.Behaivour;
 using CurseForgeApiLib.Enums;
+using Logging;
 using ModManager.Model;
 using Newtonsoft.Json;
 
@@ -21,7 +22,17 @@ namespace CurseForgeApiLib.Client
             var response = await _service.GetMod(modId);
             var modData = JsonConvert.DeserializeObject<ModData>(response);
 
-            return modData.Data;
+            if(modData != null)
+            {
+                LoggerService.Logger.Info($"Successfuly deserialized mod {modId}");
+                return modData.Data;
+            }
+            else
+            {
+                LoggerService.Logger.Error($"Cannot deserialize mod {modId}");
+
+                return null;
+            }
         }
 
         public async Task<string> GetModDescription(int modId)
@@ -29,7 +40,16 @@ namespace CurseForgeApiLib.Client
             var response = await _service.GetModDescription(modId);
             var descriptionData = JsonConvert.DeserializeObject<ModDescriptionData>(response);
 
-            return descriptionData.Data;
+            if (descriptionData != null)
+            {
+                LoggerService.Logger.Info($"Successfuly deserizled mod's description {modId}");
+                return descriptionData.Data; 
+            }
+            else
+            {
+                LoggerService.Logger.Error($"Cannot deserialize mod's description {modId}");
+                return null;
+            }
         }
 
         public async Task<List<Mod>> GetMods(List<int> modIds)
@@ -38,7 +58,16 @@ namespace CurseForgeApiLib.Client
 
             var modsData = JsonConvert.DeserializeObject<ModsData>(response);
 
-            return modsData.Data;
+            if (modsData != null)
+            {
+                LoggerService.Logger.Info($"Successfuly deserialized mods {string.Join(',', modsData.Data.Select(mod => mod.Name))}");
+                return modsData.Data; 
+            }
+            else
+            {
+                LoggerService.Logger.Error($"Cannot deserialize mods {string.Join(',', modIds)}");
+                return null;
+            }
         }
 
         public async Task<List<Mod>> SearchMods(int gameId = 432, int classId = 6,
@@ -54,7 +83,16 @@ namespace CurseForgeApiLib.Client
 
             var modsData = JsonConvert.DeserializeObject<ModsData>(response);
 
-            return modsData.Data;
+            if (modsData != null)
+            {
+                LoggerService.Logger.Info($"Successfuly deserizled mods for the search query");
+                return modsData.Data; 
+            }
+            else
+            {
+                LoggerService.Logger.Error($"Cannot deserialize mods for the search query");
+                return null;
+            }
         }
 
         public async Task<List<Mod>> SearchMods(ViewState state)
@@ -67,7 +105,7 @@ namespace CurseForgeApiLib.Client
                 searchFilter: state.SearchFilter,
                 sortField: state.SortFields ?? 0,
                 sortOrder: state.SortOrder ?? "asc",
-                modLoaderType: state.ModLoaderType ?? ModLoaderType.Any,
+                modLoaderType: state.ModLoaderType,
                 gameVersionTypeId: state.GameVersionTypeId ?? 0,
                 authorId: state.AuthorId ?? 0,
                 slug: state.Slug,

@@ -3,12 +3,13 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
-        xmlns:local="clr-namespace:ModManager"
+        xmlns:usrc="clr-namespace:ModManager.CustomControls"
         mc:Ignorable="d"
-        Title="MainWindow" Height="700" Width="1200" Activated="Window_Activated" FontSize="14">
+        Title="MainWindow" Height="700" Width="1200" FontSize="14" Loaded="Window_Loaded"
+        Background="WhiteSmoke">
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="352*"/>
         </Grid.RowDefinitions>
@@ -18,9 +19,9 @@
         </Grid.ColumnDefinitions>
         <Menu Grid.Row="0" Grid.ColumnSpan="2">
             <MenuItem Header="Файл">
-                <MenuItem Header="Выбрать папку" />
-                <MenuItem Header="Открыть" />
-                <MenuItem Header="Загрузить" />
+                <MenuItem Header="Выбрать папку" Click="MenuItem_Click_1" />
+                <MenuItem Header="Сохранить" Click="MenuItem_Click_2" />
+                <MenuItem Header="Загрузить" Click="MenuItem_Click_3" />
                 <Separator />
                 <MenuItem Header="Выйти" Click="MenuItem_Click"/>
             </MenuItem>
@@ -28,9 +29,9 @@
             <MenuItem Header="Помощь">
                 <MenuItem Header="О программе" />
             </MenuItem>
-        </Menu>
-        <ToolBarTray Grid.Row="0" Grid.ColumnSpan="2" VerticalAlignment="Center" Height="Auto" Margin="0 0 0 5">
-            <ToolBar VerticalAlignment="Top" HorizontalContentAlignment="Center" AutomationProperties.HelpText="This is a combobox">
+        </Menu >
+        <ToolBarTray Grid.Row="1" Grid.ColumnSpan="2" HorizontalAlignment="Stretch" VerticalAlignment="Center" Height="Auto" Margin="0 0 0 5">
+            <ToolBar>
                 <Button Width="25" Click="PreviousPage_Click">
                     <TextBlock Text="&lt;"/>
                 </Button>
@@ -40,40 +41,37 @@
                 </Button>
                 <Separator/>
                 <Label Content="Версия игры"/>
-                <ComboBox Name="GameVersionComboBox" MinWidth="100" Width="Auto" 
-                          SelectionChanged="GameVersionComboBox_SelectionChanged" DisplayMemberPath="VersionString"/>
+                <ComboBox Name="GameVersionComboBox" MinWidth="100" Width="Auto" DisplayMemberPath="VersionString" SelectionChanged="GameVersionComboBox_SelectionChanged"/>
                 <Label Content="Категория"/>
-                <ComboBox Name="CategoryComboBox" MinWidth="100" Width="Auto" 
+                <ComboBox Name="CategoryComboBox" MinWidth="100" Width="Auto"
                           SelectionChanged="CategoryComboBox_SelectionChanged" DisplayMemberPath="Name"/>
                 <Label Content="Загрузчик"/>
-                <ComboBox Name="ModLoaderComboBox" MinWidth="100" Width="Auto"/>
+                <ComboBox Name="ModLoaderComboBox" MinWidth="100" Width="Auto" SelectionChanged="ModLoaderComboBox_SelectionChanged" />
                 <Label Content="Сортировать по"/>
-                <ComboBox Name="SortFieldComboBox" MinWidth="100" Width="Auto"/>
-                <CheckBox Content="По убыванию" Name="DescendingCheckBox"/>
-                <TextBox Name="SearchFilter" Text="Поиск..." Width="150"/>
+                <ComboBox Name="SortFieldComboBox" MinWidth="100" Width="Auto" SelectionChanged="SortFieldComboBox_SelectionChanged"/>
+                <CheckBox Content="По убыванию" Name="DescendingCheckBox" Checked="DescendingCheckBox_Checked" />
+                <TextBox Name="SearchFilter" Text="Поиск..." Width="150" KeyUp="SearchFilter_KeyUp" />
+                <Label Content="Размер страницы"/>
+                <ComboBox Name="PageSizeComboBox" MinWidth="70" Width="Auto" SelectionChanged="PageSizeComboBox_SelectionChanged"/>
             </ToolBar>
         </ToolBarTray>
 
-        <DataGrid Grid.Row="1" Grid.Column="0" Name="datagrid" 
+        <DataGrid Grid.Row="2" Grid.Column="0" Name="datagrid" SelectionMode="Single"
                   ScrollViewer.HorizontalScrollBarVisibility="Disabled" CanUserReorderColumns="False" 
                   CanUserResizeColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" 
                   CanUserResizeRows="False" HorizontalScrollBarVisibility="Disabled"
-                  AutoGeneratingColumn="datagrid_AutoGeneratingColumn" VerticalContentAlignment="Center" 
-                  MaxColumnWidth="420" HorizontalContentAlignment="Center" GridLinesVisibility="None">
-            <DataGrid.Resources>
-                <Style TargetType="DataGridRow">
-                    <Setter Property="Margin" Value="0 2"/>
-                </Style>
-            </DataGrid.Resources>
+                  AutoGeneratingColumn="Datagrid_AutoGeneratingColumn" VerticalContentAlignment="Center" 
+                  MaxColumnWidth="420" HorizontalContentAlignment="Center" GridLinesVisibility="Horizontal" >
             <DataGrid.CellStyle>
                 <Style TargetType="DataGridCell">
-                    <Setter Property="VerticalAlignment" Value="Center"/>
+                    <Setter Property="Padding" Value="10"/>
                 </Style>
             </DataGrid.CellStyle>
         </DataGrid>
-        <StackPanel Grid.Row="1" Grid.Column="1" VerticalAlignment="Stretch">
-            <Label Content="Mod Name"/>
+        <usrc:ModDescription Grid.Column="1" Grid.Row="2" x:Name="ModDescription" Mod="{Binding ElementName=datagrid, Path=SelectedItem}"/>
+        <StackPanel Orientation="Vertical" Grid.Row="2" Grid.Column="1" VerticalAlignment="Bottom" Margin="10">
+            <ProgressBar VerticalAlignment="Bottom" Height="30" Margin="0 0 0 5" Name="ProgressBar"/>
+            <Button Content="Загрузить" Height="50"   Click="Button_Click"/>
         </StackPanel>
-
     </Grid>
 </Window>

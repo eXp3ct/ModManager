@@ -2,6 +2,7 @@
 using CurseForgeApiLib.Enums;
 using CurseForgeApiLib.HttpClients;
 using CurseForgeApiLib.Uris;
+using Logging;
 using Newtonsoft.Json;
 using System.Text;
 
@@ -17,14 +18,34 @@ namespace CurseForgeApiLib.Client
         {
             using var response = await Client.GetAsync(CurseForgeUris.GetEndpoint(RequestType.GetMod, modId));
 
-            return await response.Content.ReadAsStringAsync();
+            if (response.IsSuccessStatusCode)
+            {
+                LoggerService.Logger.Info($"Successfuly fetched mod {modId}");
+
+                return await response.Content.ReadAsStringAsync();
+            }
+            else
+            {
+                LoggerService.Logger.Error($"Cannot fetch mod {modId}");
+                return null;
+            }
         }
 
         public async Task<string> GetModDescription(int modId)
         {
             using var response = await Client.GetAsync(CurseForgeUris.GetEndpoint(RequestType.GetModDescription, modId));
 
-            return await response.Content.ReadAsStringAsync();
+            if (response.IsSuccessStatusCode)
+            {
+                LoggerService.Logger.Info($"Successfuly fetched mod's description {modId}");
+
+                return await response.Content.ReadAsStringAsync();
+            }
+            else
+            {
+                LoggerService.Logger.Error($"Cannot fetch mod's description {modId}");
+                return null;
+            }
         }
 
         public async Task<string> GetMods(List<int> modIds)
@@ -58,7 +79,7 @@ namespace CurseForgeApiLib.Client
             if (!string.IsNullOrEmpty(searchFilter)) queryString.Append($"&searchFilter={Uri.EscapeDataString(searchFilter)}");
             queryString.Append($"&sortField={(int)sortField}");
             queryString.Append($"&sortOrder={sortOrder}");
-            queryString.Append($"&modLoader={(int)modLoaderType}");
+            queryString.Append($"&modLoaderType={(int)modLoaderType}");
             if (gameVersionTypeId != 0) queryString.Append($"&gameVersionTypeId={gameVersionTypeId}");
             if (authorId != 0) queryString.Append($"&authorId={authorId}");
             if (!string.IsNullOrEmpty(slug)) queryString.Append($"&slug={Uri.EscapeDataString(slug)}");
@@ -72,10 +93,13 @@ namespace CurseForgeApiLib.Client
 
             if (!response.IsSuccessStatusCode)
             {
+                LoggerService.Logger.Error($"Invalid search query, cannot fetch mods");
                 throw new HttpRequestException($"HTTP request failed with status code {response.StatusCode}");
             }
 
             var responseContent = await response.Content.ReadAsStringAsync();
+            LoggerService.Logger.Info($"Successfuly fetched mods via search query");
+
             return responseContent;
         }
     }
