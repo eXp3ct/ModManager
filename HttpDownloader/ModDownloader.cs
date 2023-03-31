@@ -4,17 +4,16 @@ using ModManager.Model;
 using Core.Enums;
 using System.Text;
 using System.Net;
+using Logging;
 
 namespace HttpDownloader
 {
     public class ModDownloader : Downloader
     {
-        public event EventHandler<string>? DependenciesFound;
-
         private readonly CurseModFileApiDeserializer _deserializer = new(new CurseModFileApiService());
         private readonly CurseModApiDeserializer _modDeserizlier = new(new CurseModApiService());
-        private string _folderPath;
-        private ViewState _viewState;
+        private readonly string _folderPath;
+        private readonly ViewState _viewState;
         
         //private List<Mod> _dependenciesMods = new();
         public ModDownloader(ViewState state, string folderPath)
@@ -25,7 +24,9 @@ namespace HttpDownloader
 
         public async Task StartDownloading(List<Mod> mods, IProgress<double> progress)
         {
+            LoggerService.Logger.Info($"Started downloading {mods.Count} mods");
             var files = await GetDownloadRequest(mods);
+            LoggerService.Logger.Info($"Total bytes to install {files.BytesToDownload}");
             var modFilePair = files.ModFiles;
 
             var downloadedBytes = default(long);
@@ -44,6 +45,8 @@ namespace HttpDownloader
                     downloadedBytes += modFile.FileLength;
                     double percentage = ((double)downloadedBytes / (double)files.BytesToDownload) * 100;
                     progress?.Report(percentage);
+
+                    LoggerService.Logger.Info($"Successfuly installed {mod.Name}");
                 }
             }
         }
@@ -79,6 +82,7 @@ namespace HttpDownloader
                             if (visitedModIds.Contains(dependency.ModId))
                             {
                                 // Skip dependencies that have already been processed
+                                LoggerService.Logger.Warn($"Skipping fetching file dependency of mod {dependency.ModId} because its duplicate");
                                 continue;
                             }
 
@@ -86,6 +90,7 @@ namespace HttpDownloader
                             if (dependencyMod == null)
                             {
                                 // Skip missing mods
+                                LoggerService.Logger.Warn($"Skipping fetching mod {dependency.ModId} beacuse of have fetched null");
                                 continue;
                             }
 
@@ -111,11 +116,6 @@ namespace HttpDownloader
                 BytesToDownload = bytesToDownload,
                 ModFiles = modFiles
             };
-        }
-
-        public void OnDepencendiesFound(string depenecies)
-        {
-            DependenciesFound?.Invoke(this, depenecies);
         }
     }
 }

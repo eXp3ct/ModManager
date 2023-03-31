@@ -1,5 +1,6 @@
 ﻿using CurseForgeApiLib.HttpClients;
 using HttpDownloader.Behaivour;
+using Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,8 +18,15 @@ namespace HttpDownloader
             using var client = new CurseApiClient();
             using var response = await client.GetAsync(url);
 
-            response.EnsureSuccessStatusCode();
-            return await response.Content.ReadAsByteArrayAsync();
+            if (response.IsSuccessStatusCode)
+            {
+                return await response.Content.ReadAsByteArrayAsync();
+            }
+            else
+            {
+                LoggerService.Logger.Error($"Cannot fetch file from url {url}");
+                return Array.Empty<byte>();
+            }
         }
     }
 }

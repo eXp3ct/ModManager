@@ -1,5 +1,6 @@
 ﻿using Core.Model;
 using CurseForgeApiLib.Client;
+using Logging;
 using Microsoft.Extensions.Caching.Memory;
 using ModManager.Model;
 using NLog;
@@ -8,7 +9,7 @@ namespace InMemoryCahing
     public class ModsProvider
     {
         public event EventHandler<IList<Mod>> SelectedModsChanged;
-        private static readonly ILogger logger = LogManager.GetCurrentClassLogger();
+
         private readonly IMemoryCache _cache = new MemoryCache(new MemoryCacheOptions
         {
             SizeLimit = 1000,
@@ -19,10 +20,6 @@ namespace InMemoryCahing
             .SetAbsoluteExpiration(TimeSpan.FromHours(3));
         private List<Mod> _selectedMods { get; set; } = new();
 
-        public ModsProvider()
-        {
-            LogManager.Configuration = new NLog.Config.XmlLoggingConfiguration(@"D:\Projects\C# Projects\ModManager\InMemoryCahing\NLog.config");
-        }
         public IList<Mod> GetSelectedMods()
         {
             return _selectedMods.ToList();
@@ -47,13 +44,18 @@ namespace InMemoryCahing
 
             if (_cache.TryGetValue(cacheKey, out IList<Mod> mods))
             {
-                logger.Info($"Cache hit for key {cacheKey}");
+                LoggerService.Logger.Info($"Cache hit for key {cacheKey}");
                 return mods;
             }
-            logger.Info($"Cache miss for key {cacheKey}");
+            LoggerService.Logger.Warn($"Cache miss for key {cacheKey}");
             mods = await FetchMods(state);
             _cache.Set(cacheKey, mods, _entryOptions.SetSize(10));
 
+            return mods;
+        }
+
+        public IList<Mod> GetMods(IList<Mod> mods)
+        {
             return mods;
         }
 
@@ -78,10 +80,12 @@ namespace InMemoryCahing
                 var mod = (Mod)sender;
                 if (mod.Selected)
                 {
+                    LoggerService.Logger.Info($"Successfuly added mod {mod.Name} to the selection list");
                     _selectedMods.Add(mod);
                 }
                 else
                 {
+                    LoggerService.Logger.Warn($"Successfuly revmoed mod {mod.Name} from the selection list");
                     _selectedMods.Remove(mod);
                 }
 

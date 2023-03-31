@@ -2,6 +2,7 @@
 using CurseForgeApiLib.Enums;
 using CurseForgeApiLib.HttpClients;
 using CurseForgeApiLib.Uris;
+using Logging;
 using Newtonsoft.Json;
 using System.Text;
 
@@ -25,7 +26,16 @@ namespace CurseForgeApiLib.Client
             // Send the request and wait for the response
             using var response = await Client.SendAsync(request);
 
-            return await response.Content.ReadAsStringAsync();
+            if (response.IsSuccessStatusCode)
+            {
+                LoggerService.Logger.Info($"Successfuly fetched files {string.Join(',', fileIds)}");
+                return await response.Content.ReadAsStringAsync(); 
+            }
+            else
+            {
+                LoggerService.Logger.Error($"Cannot fetch files {string.Join(',', fileIds)}");
+                return null;
+            }
         }
 
         public async Task<string> GetModFile(int modId, int fileId)
@@ -33,7 +43,16 @@ namespace CurseForgeApiLib.Client
             var url = CurseForgeUris.GetEndpoint(RequestType.GetModFile, modId, fileId);
             using var response = await Client.GetAsync(url);
 
-            return await response.Content.ReadAsStringAsync();
+            if (response.IsSuccessStatusCode)
+            {
+                LoggerService.Logger.Info($"Successfuly fetched mods's {modId} file {fileId}");
+                return await response.Content.ReadAsStringAsync(); 
+            }
+            else
+            {
+                LoggerService.Logger.Error($"Cannot fetched mods's {modId} file {fileId}");
+                return null;
+            }
         }
 
         public async Task<string> GetModFileDownloadUrl(int modId, int fileId)
@@ -41,7 +60,16 @@ namespace CurseForgeApiLib.Client
             var url = CurseForgeUris.GetEndpoint(RequestType.GetModFileDownloadUrl, modId: modId, fileId: fileId);
             using var response = await Client.GetAsync(url);
 
-            return await response.Content.ReadAsStringAsync();
+            if (response.IsSuccessStatusCode)
+            {
+                LoggerService.Logger.Info($"Successfuly fetched mod's {modId} file's {fileId} download url");
+                return await response.Content.ReadAsStringAsync(); 
+            }
+            else
+            {
+                LoggerService.Logger.Error($"Cannot fetch mod's {modId} file's {fileId} download url");
+                return null;
+            }
         }
 
         public async Task<string> GetModFiles(int modId, string gameVersion = "", 
@@ -61,7 +89,16 @@ namespace CurseForgeApiLib.Client
 
             using var response = await Client.GetAsync(url);
 
-            return await response.Content.ReadAsStringAsync();
+            if (response.IsSuccessStatusCode)
+            {
+                LoggerService.Logger.Info($"Successfuly fetched mod's {modId} files for the game version {gameVersion}, mod loader {modLoaderType}");
+                return await response.Content.ReadAsStringAsync(); 
+            }
+            else
+            {
+                LoggerService.Logger.Error($"Cannot fetch mod's {modId} files for the game version {gameVersion}, mod loader {modLoaderType}");
+                return null;
+            }
         }
     }
 }

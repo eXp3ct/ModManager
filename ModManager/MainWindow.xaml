@@ -60,7 +60,7 @@
                   ScrollViewer.HorizontalScrollBarVisibility="Disabled" CanUserReorderColumns="False" 
                   CanUserResizeColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" 
                   CanUserResizeRows="False" HorizontalScrollBarVisibility="Disabled"
-                  AutoGeneratingColumn="datagrid_AutoGeneratingColumn" VerticalContentAlignment="Center" 
+                  AutoGeneratingColumn="Datagrid_AutoGeneratingColumn" VerticalContentAlignment="Center" 
                   MaxColumnWidth="420" HorizontalContentAlignment="Center" GridLinesVisibility="Horizontal" >
             <DataGrid.CellStyle>
                 <Style TargetType="DataGridCell">

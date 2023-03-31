@@ -1,5 +1,6 @@
 ﻿using Core.Model;
 using CurseForgeApiLib.Client;
+using Logging;
 using ModManager.Model;
 using System;
 using System.Collections.Generic;
@@ -89,8 +90,11 @@ namespace ModManager.CustomControls
                 bitmap.Freeze();
                 return bitmap;
             }
-
-            return new BitmapImage();
+            else
+            {
+                LoggerService.Logger.Error($"Cannot fetch image from url {url}");
+                return new BitmapImage();
+            }
         }
     }
 }

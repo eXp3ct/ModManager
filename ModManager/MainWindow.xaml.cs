@@ -4,8 +4,10 @@ using CurseForgeApiLib.Enums;
 using Features.Attributes;
 using HttpDownloader;
 using InMemoryCahing;
+using Logging;
 using ModManager.Model;
 using Newtonsoft.Json;
+using NLog;
 using Ookii.Dialogs.Wpf;
 using System;
 using System.Collections.Generic;
@@ -26,6 +28,7 @@ namespace ModManager
     public partial class MainWindow : Window
     {
         private const int PaginationLimit = 10000;
+        
         public static ViewState State { get; set; } = new()
         {
             GameId = 432,
@@ -53,7 +56,7 @@ namespace ModManager
         public MainWindow()
         {
             InitializeComponent();
-
+            
             _modsProvider.SelectedModsChanged += _modsProvider_SelectedModsChanged;
         }
 
@@ -71,6 +74,15 @@ namespace ModManager
         {
             var mods = await _modsProvider.GetMods(State);
             datagrid.ItemsSource = mods;
+        }
+
+        private void FetchMods(bool saved)
+        {
+            if (saved)
+            {
+                var mods = _modsProvider.GetMods(_modsProvider.GetSelectedMods());
+                datagrid.ItemsSource = mods;
+            }
         }
 
         private async void CurrentState_PropertyChanged(object? sender, PropertyChangedEventArgs e)
@@ -92,12 +104,9 @@ namespace ModManager
                 return;
             pageNumber.Content = ++PageNumber;
             State.Index += State.PageSize;
-
-            //var mods = string.Join("\n", _modsProvider.SelectedMods.Select(mod => mod.Name));
-            //MessageBox.Show(mods);
         }
 
-        private void datagrid_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
+        private void Datagrid_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
         {
             var propertyDescriptor = e.PropertyDescriptor as PropertyDescriptor;
 
@@ -194,23 +203,18 @@ namespace ModManager
 
             ProgressBar.Maximum = 100;
             ProgressBar.Minimum = 0;
+
             var progress = new Progress<double>(value => ProgressBar.Value += value);
 
-            downloader.DependenciesFound += Downloader_DependenciesFound;
 
             var selectedMods = (List<Mod>)_modsProvider.GetSelectedMods();
             DownloadedMods.AddRange(selectedMods);
             await downloader.StartDownloading(selectedMods, progress);
 
             MessageBox.Show($"{selectedMods.Count} was successfuly installed!");
+            LoggerService.Logger.Info($"Successfuly installed {selectedMods.Count} mods");
             _modsProvider.ClearSelectedMods();
             ProgressBar.Value = 0;
-        }
-
-        private void Downloader_DependenciesFound(object? sender, string e)
-        {
-            MessageBox.Show($"Найдены следующие зависимости: \n{e}\nОни будут установлены автоматически",
-                "Найдены зависимости", MessageBoxButton.OK, MessageBoxImage.Warning);
         }
 
         private async void MenuItem_Click_2(object sender, RoutedEventArgs e)
@@ -236,6 +240,7 @@ namespace ModManager
                 var mods = JsonConvert.DeserializeObject<List<Mod>>(jsonString);
 
                 _modsProvider.SetSelectedMods(mods);
+                FetchMods(true);
             }
         }
     }
