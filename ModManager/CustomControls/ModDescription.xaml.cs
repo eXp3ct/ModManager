@@ -42,13 +42,16 @@ namespace ModManager.CustomControls
         {
             if (d is ModDescription modDescription && e.NewValue is Mod mod)
             {
-                // Fetch the dependency mods for the selected mod
-                var dependencyMods = await modDescription.FetchDependencies(mod);
-                var modLogo = await modDescription.FetchImage(mod.Logo.Url);
+                if (mod != null)
+                {
+                    // Fetch the dependency mods for the selected mod
+                    var dependencyMods = await modDescription.FetchDependencies(mod);
+                    var modLogo = await modDescription.FetchImage(mod.Logo.Url);
 
-                // Bind the dependency mods to the listbox
-                modDescription.DependecyList.ItemsSource = dependencyMods;
-                modDescription.ModImage.Source = modLogo;
+                    // Bind the dependency mods to the listbox
+                    modDescription.DependecyList.ItemsSource = dependencyMods;
+                    modDescription.ModImage.Source = modLogo; 
+                }
             }
         }
 
@@ -56,20 +59,23 @@ namespace ModManager.CustomControls
         {
             var dependencyMods = new List<string>();
 
-            // Fetch the dependency mods for the selected mod
-            var modFiles = await _fileDeserialier.GetModFiles(mod.Id, MainWindow.State.GameVersion, MainWindow.State.ModLoaderType, pageSize: 10);
-            var file = modFiles.FirstOrDefault();
-            if(file != null)
+            if (mod != null)
             {
-                var dependency = file.Dependencies.Where(dep => dep.RelationType == Core.Enums.FileRelationType.RequiredDependency);
-
-                if (dependency.Any())
+                // Fetch the dependency mods for the selected mod
+                var modFiles = await _fileDeserialier.GetModFiles(mod.Id, MainWindow.State.GameVersion, MainWindow.State.ModLoaderType, pageSize: 10);
+                var file = modFiles.FirstOrDefault();
+                if (file != null)
                 {
-                    foreach(var dep in dependency)
+                    var dependency = file.Dependencies.Where(dep => dep.RelationType == Core.Enums.FileRelationType.RequiredDependency);
+
+                    if (dependency.Any())
                     {
-                        dependencyMods.Add((await _modDeserializer.GetMod(dep.ModId)).Name);
+                        foreach (var dep in dependency)
+                        {
+                            dependencyMods.Add((await _modDeserializer.GetMod(dep.ModId)).Name);
+                        }
                     }
-                }
+                } 
             }
             return dependencyMods;
         }

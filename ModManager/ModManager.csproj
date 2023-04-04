@@ -5,7 +5,22 @@
     <TargetFramework>net7.0-windows</TargetFramework>
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
+    <Company>$(Authors)</Company>
+    <RepositoryUrl>https://github.com/eXp3ct/ModManager</RepositoryUrl>
+    <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
+    <PackageIcon></PackageIcon>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="cube.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\LICENSE.txt">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
@@ -19,6 +34,10 @@
     <ProjectReference Include="..\HttpDownloader\HttpDownloader.csproj" />
     <ProjectReference Include="..\InMemoryCahing\InMemoryCahing.csproj" />
     <ProjectReference Include="..\Logging\Logging.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="cube.png" />
   </ItemGroup>
 
 </Project>

@@ -37,16 +37,28 @@ namespace HttpDownloader
                 var fileDownloadUrl = await _deserializer.GetModFileDownloadUrl(mod.Id, modFile.Id);
                 if (fileDownloadUrl != null)
                 {
-                    var fileBytes = await Download(fileDownloadUrl);
-                    if (fileBytes == Array.Empty<byte>())
+                    if (!File.Exists($"{_folderPath}/{modFile.FileName}"))
+                    {
+                        LoggerService.Logger.Info($"Successfuly fetched mod's {mod.Name} file's download url");
+                        var fileBytes = await Download(fileDownloadUrl);
+                        if (fileBytes == Array.Empty<byte>())
+                            continue;
+                        using var fileStream = new FileStream($"{_folderPath}/{modFile.FileName}", FileMode.Create);
+                        fileStream.Write(fileBytes, 0, fileBytes.Length);
+                        downloadedBytes += modFile.FileLength;
+                        double percentage = ((double)downloadedBytes / (double)files.BytesToDownload) * 100;
+                        progress?.Report(percentage);
+                        LoggerService.Logger.Info($"Successfuly installed {mod.Name}");
+                    }
+                    else
+                    {
+                        LoggerService.Logger.Warn($"Skipping installing {mod.Name} because its already exist");
                         continue;
-                    using var fileStream = new FileStream($"{_folderPath}/{modFile.FileName}", FileMode.Create);
-                    fileStream.Write(fileBytes, 0, fileBytes.Length);
-                    downloadedBytes += modFile.FileLength;
-                    double percentage = ((double)downloadedBytes / (double)files.BytesToDownload) * 100;
-                    progress?.Report(percentage);
-
-                    LoggerService.Logger.Info($"Successfuly installed {mod.Name}");
+                    }
+                }
+                else
+                {
+                    LoggerService.Logger.Error($"Cannot fetch mod's {mod.Name} download url, may be there is no download url");
                 }
             }
         }
@@ -100,6 +112,7 @@ namespace HttpDownloader
                             if (latestDependencyFile != null)
                             {
                                 bytesToDownload += latestDependencyFile.FileLength;
+                                LoggerService.Logger.Info($"Added mod {dependencyMod.Name} to download list");
                                 modFiles.Add(dependencyMod, latestDependencyFile);
                                 visitedModIds.Add(dependency.ModId);
                                 dependencyMods.Add(dependencyMod);

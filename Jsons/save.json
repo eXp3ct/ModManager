@@ -1,0 +1,142 @@
+[
+  {
+    "Id": 300331,
+    "GameId": 432,
+    "Name": "Simply Light",
+    "Slug": "simply-light",
+    "Summary": "Simple light for a complicated world.",
+    "ClassId": 6,
+    "Status": 4,
+    "Links": {
+      "WebsiteUrl": "https://www.curseforge.com/minecraft/mc-mods/simply-light",
+      "WikiUrl": "",
+      "IssuesUrl": "https://github.com/Flanks255/simplylight/issues",
+      "SourceUrl": "https://github.com/Flanks255/simplylight"
+    },
+    "Categories": [
+      {
+        "Id": 424,
+        "GameId": 432,
+        "Name": "Cosmetic",
+        "Slug": "cosmetic",
+        "Url": "https://www.curseforge.com/minecraft/mc-mods/cosmetic",
+        "IconUrl": "https://media.forgecdn.net/avatars/6/39/635351497555976928.png",
+        "DateModified": "2014-05-08T17:42:35.597Z",
+        "IsClass": false,
+        "ClassId": 6,
+        "ParentCategoryId": 6,
+        "DisplayIndex": null
+      }
+    ],
+    "Logo": {
+      "Id": 165997,
+      "ModId": 300331,
+      "Title": "636695496359245657.png",
+      "Description": "",
+      "ThumbnailUrl": "https://media.forgecdn.net/avatars/thumbnails/165/997/256/256/636695496359245657.png",
+      "Url": "https://media.forgecdn.net/avatars/165/997/636695496359245657.png"
+    },
+    "LatestFiles": [
+      {
+        "Id": 2751804,
+        "GameId": 432,
+        "ModId": 300331,
+        "IsAvailable": true,
+        "DisplayName": "simplylight-1.14.4-0.8.5.jar",
+        "FileName": "simplylight-1.14.4-0.8.5.jar",
+        "FileStatus": 4,
+        "FileDate": "2019-07-31T02:27:44.213Z",
+        "FileLength": 373597,
+        "DownloadCount": 10775,
+        "DownloadUrl": "https://edge.forgecdn.net/files/2751/804/simplylight-1.14.4-0.8.5.jar",
+        "GameVersions": [
+          "1.14.4"
+        ],
+        "Dependencies": []
+      },
+      {
+        "Id": 2754203,
+        "GameId": 432,
+        "ModId": 300331,
+        "IsAvailable": true,
+        "DisplayName": "simplylight-1.12.2-0.8.6.jar",
+        "FileName": "simplylight-1.12.2-0.8.6.jar",
+        "FileStatus": 4,
+        "FileDate": "2019-08-03T21:06:54.147Z",
+        "FileLength": 421577,
+        "DownloadCount": 7781,
+        "DownloadUrl": "https://edge.forgecdn.net/files/2754/203/simplylight-1.12.2-0.8.6.jar",
+        "GameVersions": [
+          "1.12.2"
+        ],
+        "Dependencies": [
+          {
+            "ModId": 248453,
+            "RelationType": 3
+          }
+        ]
+      },
+      {
+        "Id": 3864730,
+        "GameId": 432,
+        "ModId": 300331,
+        "IsAvailable": true,
+        "DisplayName": "simplylight-1.19-1.4.3-build.37.jar",
+        "FileName": "simplylight-1.19-1.4.3-build.37.jar",
+        "FileStatus": 4,
+        "FileDate": "2022-07-08T21:58:28.617Z",
+        "FileLength": 550646,
+        "DownloadCount": 0,
+        "DownloadUrl": "https://edge.forgecdn.net/files/3864/730/simplylight-1.19-1.4.3-build.37.jar",
+        "GameVersions": [
+          "Forge",
+          "1.19"
+        ],
+        "Dependencies": []
+      },
+      {
+        "Id": 3896576,
+        "GameId": 432,
+        "ModId": 300331,
+        "IsAvailable": true,
+        "DisplayName": "simplylight-fabric-1.19-1.4.3.jar",
+        "FileName": "simplylight-fabric-1.19-1.4.3.jar",
+        "FileStatus": 4,
+        "FileDate": "2022-07-24T16:08:50.037Z",
+        "FileLength": 570682,
+        "DownloadCount": 1505,
+        "DownloadUrl": "https://edge.forgecdn.net/files/3896/576/simplylight-fabric-1.19-1.4.3.jar",
+        "GameVersions": [
+          "Fabric",
+          "1.19"
+        ],
+        "Dependencies": []
+      },
+      {
+        "Id": 4166553,
+        "GameId": 432,
+        "ModId": 300331,
+        "IsAvailable": true,
+        "DisplayName": "simplylight-1.19.3-1.4.5-build.46.jar",
+        "FileName": "simplylight-1.19.3-1.4.5-build.46.jar",
+        "FileStatus": 4,
+        "FileDate": "2022-12-11T21:19:36.433Z",
+        "FileLength": 551271,
+        "DownloadCount": 0,
+        "DownloadUrl": "https://edge.forgecdn.net/files/4166/553/simplylight-1.19.3-1.4.5-build.46.jar",
+        "GameVersions": [
+          "1.19.3",
+          "Forge"
+        ],
+        "Dependencies": []
+      }
+    ],
+    "DateCreated": "2018-08-08T17:52:02.453Z",
+    "DateModified": "2022-12-11T21:38:25.677Z",
+    "DateReleased": "2022-12-11T21:19:36.433Z",
+    "GamePopularityRank": 157,
+    "DownloadCount": 18923502,
+    "IsAvailable": true,
+    "Selected": true
+  }
+]

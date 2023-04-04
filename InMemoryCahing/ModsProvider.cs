@@ -4,6 +4,8 @@ using Logging;
 using Microsoft.Extensions.Caching.Memory;
 using ModManager.Model;
 using NLog;
+using System.Runtime.CompilerServices;
+
 namespace InMemoryCahing
 {
     public class ModsProvider
@@ -18,25 +20,25 @@ namespace InMemoryCahing
         private readonly MemoryCacheEntryOptions _entryOptions = new MemoryCacheEntryOptions()
             .SetSlidingExpiration(TimeSpan.FromHours(1))
             .SetAbsoluteExpiration(TimeSpan.FromHours(3));
-        private List<Mod> _selectedMods { get; set; } = new();
+        private List<Mod> SelectedMods { get; set; } = new();
 
         public IList<Mod> GetSelectedMods()
         {
-            return _selectedMods.ToList();
+            return SelectedMods.ToList();
         }
         public void ClearSelectedMods()
         {
-            _selectedMods.Clear();
+            SelectedMods.Clear();
         }
 
         public void SetSelectedMods(List<Mod> mods)
         {
-            mods.ForEach(mod => _selectedMods.Add(mod.Clone()));
+            mods.ForEach(mod => SelectedMods.Add(mod.Clone()));
         }
 
         private void OnSelectedModsChanged()
         {
-            SelectedModsChanged?.Invoke(this, _selectedMods);
+            SelectedModsChanged?.Invoke(this, SelectedMods);
         }
         public async Task<IList<Mod>> GetMods(ViewState state)
         {
@@ -51,11 +53,6 @@ namespace InMemoryCahing
             mods = await FetchMods(state);
             _cache.Set(cacheKey, mods, _entryOptions.SetSize(10));
 
-            return mods;
-        }
-
-        public IList<Mod> GetMods(IList<Mod> mods)
-        {
             return mods;
         }
 
@@ -81,12 +78,12 @@ namespace InMemoryCahing
                 if (mod.Selected)
                 {
                     LoggerService.Logger.Info($"Successfuly added mod {mod.Name} to the selection list");
-                    _selectedMods.Add(mod);
+                    SelectedMods.Add(mod);
                 }
                 else
                 {
                     LoggerService.Logger.Warn($"Successfuly revmoed mod {mod.Name} from the selection list");
-                    _selectedMods.Remove(mod);
+                    SelectedMods.Remove(mod);
                 }
 
                 OnSelectedModsChanged();
