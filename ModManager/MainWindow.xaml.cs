@@ -7,18 +7,15 @@ using InMemoryCahing;
 using Logging;
 using ModManager.Model;
 using Newtonsoft.Json;
-using NLog;
 using Ookii.Dialogs.Wpf;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Documents;
 
 namespace ModManager
 {
@@ -28,7 +25,7 @@ namespace ModManager
     public partial class MainWindow : Window
     {
         private const int PaginationLimit = 10000;
-        
+
         public static ViewState State { get; set; } = new()
         {
             GameId = 432,
@@ -46,7 +43,7 @@ namespace ModManager
             SortOrder = null
         };
 
-        private readonly List<int> PageSizes = new() { 5, 10, 15, 20, 30, 50};
+        private readonly List<int> PageSizes = new() { 5, 10, 15, 20, 30, 50 };
         private List<Mod> DownloadedMods = new();
         private readonly CurseFeaturesApiDeserializer _featuresDeserializer = new();
         private readonly ModsProvider _modsProvider = new();
@@ -56,7 +53,7 @@ namespace ModManager
         public MainWindow()
         {
             InitializeComponent();
-            
+
             _modsProvider.SelectedModsChanged += _modsProvider_SelectedModsChanged;
         }
 
@@ -112,7 +109,7 @@ namespace ModManager
 
             if (propertyDescriptor.Attributes.OfType<HideInDataGridAttribute>().Any())
                 e.Cancel = true;
-            if(e.Column is DataGridTextColumn column)
+            if (e.Column is DataGridTextColumn column)
             {
                 var style = new Style(typeof(TextBlock));
                 style.Setters.Add(new Setter(TextBlock.TextWrappingProperty, TextWrapping.Wrap));
@@ -160,7 +157,7 @@ namespace ModManager
 
         private void SearchFilter_KeyUp(object sender, System.Windows.Input.KeyEventArgs e)
         {
-            if(e.Key == System.Windows.Input.Key.Enter)
+            if (e.Key == System.Windows.Input.Key.Enter)
             {
                 var searchString = SearchFilter.Text;
                 State.SearchFilter = searchString;
@@ -193,12 +190,22 @@ namespace ModManager
             var dialog = new VistaFolderBrowserDialog();
             if (dialog.ShowDialog() == true)
             {
-                FolderPath = dialog.SelectedPath;   
+                FolderPath = dialog.SelectedPath;
             }
         }
 
         private async void Button_Click(object sender, RoutedEventArgs e)
         {
+            if (string.IsNullOrEmpty(FolderPath))
+            {
+                MessageBox.Show("Выберите путь до папки", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+            if (string.IsNullOrEmpty(State.GameVersion))
+            {
+                MessageBox.Show("Выберите версию", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
             var downloader = new ModDownloader(State, FolderPath);
 
             ProgressBar.Maximum = 100;
@@ -233,7 +240,7 @@ namespace ModManager
         private async void MenuItem_Click_3(object sender, RoutedEventArgs e)
         {
             var dialog = new VistaOpenFileDialog();
-            if(dialog.ShowDialog() == true)
+            if (dialog.ShowDialog() == true)
             {
                 var path = dialog.FileName;
                 var jsonString = await File.ReadAllTextAsync(path);

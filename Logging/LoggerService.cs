@@ -8,7 +8,7 @@ namespace Logging
 
         static LoggerService()
         {
-            LogManager.Configuration = new NLog.Config.XmlLoggingConfiguration(@"D:\Projects\C# Projects\ModManager\InMemoryCahing\NLog.config");
+            LogManager.Configuration = new NLog.Config.XmlLoggingConfiguration(@"NLog.config");
         }
     }
 }
