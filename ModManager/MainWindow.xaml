@@ -6,7 +6,7 @@
         xmlns:usrc="clr-namespace:ModManager.CustomControls"
         mc:Ignorable="d"
         Title="MainWindow" Height="700" Width="1200" FontSize="14" Loaded="Window_Loaded"
-        Background="WhiteSmoke">
+        Background="WhiteSmoke" Icon="/cube.png">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -29,6 +29,7 @@
             <MenuItem Header="Помощь">
                 <MenuItem Header="О программе" />
             </MenuItem>
+            <MenuItem Header="Обновить" Name="CheckUpdates" Click="CheckUpdates_Click"/>
         </Menu >
         <ToolBarTray Grid.Row="1" Grid.ColumnSpan="2" HorizontalAlignment="Stretch" VerticalAlignment="Center" Height="Auto" Margin="0 0 0 5">
             <ToolBar>

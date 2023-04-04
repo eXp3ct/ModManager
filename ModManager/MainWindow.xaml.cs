@@ -80,7 +80,7 @@ namespace ModManager
         {
             if (saved)
             {
-                var mods = _modsProvider.GetMods(_modsProvider.GetSelectedMods());
+                var mods = _modsProvider.GetSelectedMods();
                 datagrid.ItemsSource = mods;
             }
         }
@@ -242,6 +242,11 @@ namespace ModManager
                 _modsProvider.SetSelectedMods(mods);
                 FetchMods(true);
             }
+        }
+
+        private void CheckUpdates_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
