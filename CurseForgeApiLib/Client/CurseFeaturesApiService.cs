@@ -3,17 +3,13 @@ using CurseForgeApiLib.Enums;
 using CurseForgeApiLib.HttpClients;
 using CurseForgeApiLib.Uris;
 using Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CurseForgeApiLib.Client
 {
     public class CurseFeaturesApiService : IGetCategories, IGetMinecraftVersions, IGetMinecraftModLoaders
     {
         private CurseApiClient Client { get; } = new();
+
 
         public async Task<string> GetCategories(int gameId, int classId = 0)
         {
@@ -34,7 +30,7 @@ namespace CurseForgeApiLib.Client
         {
             var url = CurseForgeUris.GetEndpoint(RequestType.GetMinecraftModLoaders) + $"?versions={version}&includeAll={includeAll}";
             using var response = await Client.GetAsync(url);
-            if(response.IsSuccessStatusCode)
+            if (response.IsSuccessStatusCode)
             {
                 LoggerService.Logger.Info("Successfuly fetched minecraft mod loaders");
 
@@ -51,7 +47,7 @@ namespace CurseForgeApiLib.Client
         {
             var url = CurseForgeUris.GetEndpoint(RequestType.GetMinecraftVersions) + $"?sortDescending={sortDescending}";
             using var response = await Client.GetAsync(url);
-            if(response.IsSuccessStatusCode)
+            if (response.IsSuccessStatusCode)
             {
                 LoggerService.Logger.Info("Successfuly fetched minecraft versions");
 

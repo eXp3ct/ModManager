@@ -14,6 +14,7 @@ namespace CurseForgeApiLib.Client
 
         public async Task<string> GetFiles(List<int> fileIds)
         {
+
             var url = CurseForgeUris.GetEndpoint(RequestType.GetFiles);
             var requestBody = JsonConvert.SerializeObject(new { fileIds });
 
@@ -40,6 +41,7 @@ namespace CurseForgeApiLib.Client
 
         public async Task<string> GetModFile(int modId, int fileId)
         {
+
             var url = CurseForgeUris.GetEndpoint(RequestType.GetModFile, modId, fileId);
             using var response = await Client.GetAsync(url);
 
@@ -57,6 +59,7 @@ namespace CurseForgeApiLib.Client
 
         public async Task<string> GetModFileDownloadUrl(int modId, int fileId)
         {
+
             var url = CurseForgeUris.GetEndpoint(RequestType.GetModFileDownloadUrl, modId: modId, fileId: fileId);
             using var response = await Client.GetAsync(url);
 
@@ -75,6 +78,7 @@ namespace CurseForgeApiLib.Client
         public async Task<string> GetModFiles(int modId, string gameVersion = "", 
             ModLoaderType modLoaderType = ModLoaderType.Any, int gameVersionTypeId = 0, int index = 0, int pageSize = 50)
         {
+
             var queryParams = new Dictionary<string, string>
             {
                 { "gameVersion", gameVersion },
