@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoUpdater.NET.Official" Version="1.7.7" />
+    <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.1661.34" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\HttpDownloader\HttpDownloader.csproj" />
+  </ItemGroup>
+
+</Project>

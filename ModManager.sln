@@ -17,7 +17,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InMemoryCahing", "InMemoryC
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HttpDownloader", "HttpDownloader\HttpDownloader.csproj", "{0BC2D45D-830F-454A-B3E4-BA16A05D216C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Logging", "Logging\Logging.csproj", "{3E0CAD4A-7D4E-40B5-8CDE-10148A01D574}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Logging", "Logging\Logging.csproj", "{3E0CAD4A-7D4E-40B5-8CDE-10148A01D574}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

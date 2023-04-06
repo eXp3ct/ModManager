@@ -11,8 +11,8 @@ using Ookii.Dialogs.Wpf;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -47,8 +47,10 @@ namespace ModManager
         private List<Mod> DownloadedMods = new();
         private readonly CurseFeaturesApiDeserializer _featuresDeserializer = new();
         private readonly ModsProvider _modsProvider = new();
+        private readonly Updater _updater = new();
         private int PageNumber { get; set; } = 1;
         private string FolderPath { get; set; }
+
 
         public MainWindow()
         {
@@ -166,6 +168,7 @@ namespace ModManager
 
         private async void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            Title = $"{Assembly.GetExecutingAssembly().GetName().Name} v{Assembly.GetExecutingAssembly().GetName().Version.ToString()}";
             pageNumber.Content = PageNumber;
             await FetchMods();
             State.PropertyChanged += CurrentState_PropertyChanged;
@@ -178,6 +181,8 @@ namespace ModManager
             SortFieldComboBox.ItemsSource = (SearchSortFields[])Enum.GetValues(typeof(SearchSortFields));
             ModLoaderComboBox.ItemsSource = (ModLoaderType[])Enum.GetValues(typeof(ModLoaderType));
             PageSizeComboBox.ItemsSource = PageSizes;
+
+            _updater.CheckForUpdates();
         }
 
         private void PageSizeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -233,7 +238,7 @@ namespace ModManager
 
                 var json = JsonConvert.SerializeObject(DownloadedMods, Formatting.Indented);
 
-                await File.WriteAllTextAsync($"{path}/save.json", json);
+                await System.IO.File.WriteAllTextAsync($"{path}/save.json", json);
             }
         }
 
@@ -243,7 +248,7 @@ namespace ModManager
             if (dialog.ShowDialog() == true)
             {
                 var path = dialog.FileName;
-                var jsonString = await File.ReadAllTextAsync(path);
+                var jsonString = await System.IO.File.ReadAllTextAsync(path);
                 var mods = JsonConvert.DeserializeObject<List<Mod>>(jsonString);
 
                 _modsProvider.SetSelectedMods(mods);
@@ -253,7 +258,16 @@ namespace ModManager
 
         private void CheckUpdates_Click(object sender, RoutedEventArgs e)
         {
+            _updater.CheckForUpdates();
+        }
 
+        private void MenuItem_Click_4(object sender, RoutedEventArgs e)
+        {
+            var about = """
+                ModManager это загрузчик модов для Minecraft. Вы можете выбрать нужные моды с помощью комбо-боксов или найти через поиск по имени
+                Так же все нужные зависимости будут автоматически установлены
+                """;
+            MessageBox.Show(about, "О программе", MessageBoxButton.OK, MessageBoxImage.Information);
         }
     }
 }
