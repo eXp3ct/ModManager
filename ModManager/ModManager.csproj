@@ -10,7 +10,7 @@
     <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
     <PackageIcon></PackageIcon>
     <ImplicitUsings>disable</ImplicitUsings>
-    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+    <AssemblyVersion>1.1.0.1</AssemblyVersion>
     <FileVersion>1.0.0.0</FileVersion>
     <PackageOutputPath></PackageOutputPath>
     <PackAsTool>True</PackAsTool>

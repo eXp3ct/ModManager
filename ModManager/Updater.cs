@@ -1,7 +1,11 @@
 ﻿using AutoUpdaterDotNET;
+using Core.Model;
+using Core.Model.Data;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Reflection;
@@ -12,11 +16,20 @@ namespace ModManager
 {
     public class Updater : IAuthentication
     {
-        private readonly string token = "ATCTT3xFfGN03zmTmXROwLADUKT9rnZTYjYg1R5-uxmkwS9tfvpRADpQWlWwKxDidR6osLZ3lh_UM0N2jHN3gOCSCRG03VsqMg61Siw6SZNMeKbvhagoOZgH2zvvIVhXDRUrXo3_7LoHT8wccj74r7j2f39kqSDyiIqBzvZH7oYMhaMH4QxRq10=E184FE8E";
+        private static readonly string token;
 
         public Updater()
         {
             AutoUpdater.InstallationPath = Assembly.GetExecutingAssembly().Location;
+            AutoUpdater.LetUserSelectRemindLater = false;
+        }
+
+        static Updater()
+        {
+            var text = File.ReadAllText(@"config\appkeys.json");
+            var keys = JsonConvert.DeserializeObject<ApiKeysData>(text);
+
+            token = keys.Tokens.Last().Key;
         }
 
         public void CheckForUpdates()
@@ -26,12 +39,9 @@ namespace ModManager
         }
         public bool EnsureAuth()
         {
-            if(AutoUpdater.BasicAuthChangeLog == null)
-                AutoUpdater.BasicAuthChangeLog = this;
-            if(AutoUpdater.BasicAuthDownload == null)
-                AutoUpdater.BasicAuthDownload = this;
-            if(AutoUpdater.BasicAuthXML == null)
-                AutoUpdater.BasicAuthXML = this;
+            AutoUpdater.BasicAuthChangeLog ??= this;
+            AutoUpdater.BasicAuthDownload ??= this;
+            AutoUpdater.BasicAuthXML ??= this;
 
             return true;
         }

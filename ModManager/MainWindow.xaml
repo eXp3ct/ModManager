@@ -27,7 +27,7 @@
             </MenuItem>
             <MenuItem Header="Поделиться"/>
             <MenuItem Header="Помощь">
-                <MenuItem Header="О программе" />
+                <MenuItem Header="О программе" Click="MenuItem_Click_4"/>
             </MenuItem>
             <MenuItem Header="Обновить" Name="CheckUpdates" Click="CheckUpdates_Click"/>
         </Menu >

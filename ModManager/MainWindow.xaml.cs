@@ -1,21 +1,17 @@
-﻿using AutoUpdaterDotNET;
-using Core.Model;
+﻿using Core.Model;
 using CurseForgeApiLib.Client;
 using CurseForgeApiLib.Enums;
 using Features.Attributes;
 using HttpDownloader;
 using InMemoryCahing;
 using Logging;
-using Microsoft.VisualBasic.ApplicationServices;
 using ModManager.Model;
 using Newtonsoft.Json;
 using Ookii.Dialogs.Wpf;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.IO;
 using System.Linq;
-using System.Net;
 using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows;
@@ -172,6 +168,7 @@ namespace ModManager
 
         private async void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            Title = $"{Assembly.GetExecutingAssembly().GetName().Name} v{Assembly.GetExecutingAssembly().GetName().Version.ToString()}";
             pageNumber.Content = PageNumber;
             await FetchMods();
             State.PropertyChanged += CurrentState_PropertyChanged;
@@ -262,6 +259,15 @@ namespace ModManager
         private void CheckUpdates_Click(object sender, RoutedEventArgs e)
         {
             _updater.CheckForUpdates();
+        }
+
+        private void MenuItem_Click_4(object sender, RoutedEventArgs e)
+        {
+            var about = """
+                ModManager это загрузчик модов для Minecraft. Вы можете выбрать нужные моды с помощью комбо-боксов или найти через поиск по имени
+                Так же все нужные зависимости будут автоматически установлены
+                """;
+            MessageBox.Show(about, "О программе", MessageBoxButton.OK, MessageBoxImage.Information);
         }
     }
 }
