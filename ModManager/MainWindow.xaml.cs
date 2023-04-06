@@ -20,8 +20,6 @@ using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using Updater;
-using static System.Net.WebRequestMethods;
 
 namespace ModManager
 {
@@ -53,10 +51,10 @@ namespace ModManager
         private List<Mod> DownloadedMods = new();
         private readonly CurseFeaturesApiDeserializer _featuresDeserializer = new();
         private readonly ModsProvider _modsProvider = new();
+        private readonly Updater _updater = new();
         private int PageNumber { get; set; } = 1;
         private string FolderPath { get; set; }
 
-        private readonly string token = "ATCTT3xFfGN0kTr3-yMRz5WMXu6JcpIeYCXz6qhiDuwUYovLvHdJWjp8IbTKqz6yYbrwHp4Pn4QE3PUErjTo3VmvD0yVmx15H4NMDQG9KsUp7VLytQWkAmPcs8FkTMxfCcmfzkTQG198NTdxVs7HCU4y7jrcZy7FzaVjNeUfn4b-aPfys4abgBo=A7E028FC";
 
         public MainWindow()
         {
@@ -187,9 +185,7 @@ namespace ModManager
             ModLoaderComboBox.ItemsSource = (ModLoaderType[])Enum.GetValues(typeof(ModLoaderType));
             PageSizeComboBox.ItemsSource = PageSizes;
 
-
-            AutoUpdater.HttpUserAgent = "Authorization: Bearer " + token;
-            AutoUpdater.Start(@"https://api.bitbucket.org/2.0/repositories/mmmodmanager/updates/downloads/updates.xml");
+            _updater.CheckForUpdates();
         }
 
         private void PageSizeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -245,7 +241,7 @@ namespace ModManager
 
                 var json = JsonConvert.SerializeObject(DownloadedMods, Formatting.Indented);
 
-                await File.WriteAllTextAsync($"{path}/save.json", json);
+                await System.IO.File.WriteAllTextAsync($"{path}/save.json", json);
             }
         }
 
@@ -255,7 +251,7 @@ namespace ModManager
             if (dialog.ShowDialog() == true)
             {
                 var path = dialog.FileName;
-                var jsonString = await File.ReadAllTextAsync(path);
+                var jsonString = await System.IO.File.ReadAllTextAsync(path);
                 var mods = JsonConvert.DeserializeObject<List<Mod>>(jsonString);
 
                 _modsProvider.SetSelectedMods(mods);
@@ -265,9 +261,7 @@ namespace ModManager
 
         private void CheckUpdates_Click(object sender, RoutedEventArgs e)
         {
-
+            _updater.CheckForUpdates();
         }
-
-       
     }
 }

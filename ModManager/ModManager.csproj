@@ -40,7 +40,6 @@
     <ProjectReference Include="..\HttpDownloader\HttpDownloader.csproj" />
     <ProjectReference Include="..\InMemoryCahing\InMemoryCahing.csproj" />
     <ProjectReference Include="..\Logging\Logging.csproj" />
-    <ProjectReference Include="..\Updater\Updater.csproj" />
   </ItemGroup>
 
   <ItemGroup>
