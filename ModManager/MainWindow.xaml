@@ -25,7 +25,7 @@
                 <Separator />
                 <MenuItem Header="Выйти" Click="MenuItem_Click"/>
             </MenuItem>
-            <MenuItem Header="Поделиться"/>
+            <MenuItem Header="Поделиться" Click="MenuItem_Click_5"/>
             <MenuItem Header="Помощь">
                 <MenuItem Header="О программе" Click="MenuItem_Click_4"/>
             </MenuItem>

@@ -29,7 +29,7 @@ namespace ModManager
             var text = File.ReadAllText(@"config\appkeys.json");
             var keys = JsonConvert.DeserializeObject<ApiKeysData>(text);
 
-            token = keys.Tokens.Last().Key;
+            token = keys.Tokens.First(api => api.Name == "Bitbucket").Key;
         }
 
         public void CheckForUpdates()

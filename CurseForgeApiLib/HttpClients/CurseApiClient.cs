@@ -19,7 +19,7 @@ namespace CurseForgeApiLib.HttpClients
             var text = File.ReadAllText(@"config\appkeys.json");
             var keys = JsonConvert.DeserializeObject<ApiKeysData>(text);
 
-            ApiKey = keys.Tokens.First().Key;
+            ApiKey = keys.Tokens.First(api => api.Name == "Curse").Key;
         }
     }
 }
