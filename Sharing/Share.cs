@@ -8,7 +8,7 @@ namespace Sharing
 {
     public class Share
     {
-        private static readonly string token;
+        public static readonly string token;
         private readonly string _url = "https://api.bitbucket.org/2.0/repositories/mmmodmanager/sharing/downloads";
         static Share()
         {
@@ -17,7 +17,7 @@ namespace Sharing
 
             token = keys.Tokens.First(api => api.Name == "BitbucketSharing").Key;
         }
-        public async Task<bool> UploadFiles(string path)
+        public async Task<bool> UploadFiles(string path, string fileName)
         {
             using var client = new HttpClient();
             client.DefaultRequestHeaders.Authorization = AuthenticationHeaderValue.Parse($"Bearer {token}");
@@ -26,7 +26,7 @@ namespace Sharing
             var fileBytes = await File.ReadAllBytesAsync(path);
             var fileContentBytes = new ByteArrayContent(fileBytes);
             fileContentBytes.Headers.ContentType = MediaTypeHeaderValue.Parse("multipart/form-data");
-            content.Add(fileContentBytes, "files", Path.GetFileName(path));
+            content.Add(fileContentBytes, "files", $"{fileName}.zip");
 
             using var response = await client.PostAsync(_url, content);
 

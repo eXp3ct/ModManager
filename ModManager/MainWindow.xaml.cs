@@ -5,6 +5,7 @@ using Features.Attributes;
 using HttpDownloader;
 using InMemoryCahing;
 using Logging;
+using ModManager.Dialogs;
 using ModManager.Model;
 using Newtonsoft.Json;
 using Ookii.Dialogs.Wpf;
@@ -271,19 +272,10 @@ namespace ModManager
             MessageBox.Show(about, "О программе", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
-        private async void MenuItem_Click_5(object sender, RoutedEventArgs e)
+        private void MenuItem_Click_5(object sender, RoutedEventArgs e)
         {
-            var sharing = new Share();
-
-            var dialog = new VistaOpenFileDialog();
-
-            if(dialog.ShowDialog() == true)
-            {
-                if (await sharing.UploadFiles(dialog.FileName))
-                    MessageBox.Show("posted");
-                else
-                    MessageBox.Show("error");
-            }
+            var sharingDialog = new SharingWindow(FolderPath);
+            sharingDialog.ShowDialog();
         }
     }
 }
